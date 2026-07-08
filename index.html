@@ -1,0 +1,2082 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>UIP 2025 — Escala Básica</title>
+<style>:root{--bg:#0a0e1a;--panel:#111827;--panel2:#1a2235;--border:#1e2d45;--accent:#2563eb;--accent2:#1d4ed8;--gold:#f59e0b;--text:#e2e8f0;--muted:#64748b;--success:#10b981;--danger:#ef4444;--radius:8px;--font:'Segoe UI',system-ui,sans-serif}*{box-sizing:border-box;margin:0;padding:0}body{font-family:var(--font);background:var(--bg);color:var(--text);min-height:100vh;display:flex;flex-direction:column}
+header{background:var(--panel);border-bottom:2px solid var(--accent);padding:14px 20px;display:flex;align-items:center;gap:14px;position:sticky;top:0;z-index:100}.logo{width:40px;height:40px;background:var(--accent);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;color:#fff;flex-shrink:0}.header-title{flex:1;min-width:0}.header-title h1{font-size:15px;font-weight:700;color:#fff}.header-title p{font-size:11px;color:var(--muted);margin-top:1px}.progress-bar-wrap{width:150px;flex-shrink:0}.progress-label{font-size:10px;color:var(--muted);margin-bottom:4px;text-align:right}.progress-bar{background:var(--border);border-radius:4px;height:6px;overflow:hidden}.progress-fill{background:var(--accent);height:100%;border-radius:4px;transition:width 0.4s}
+.app{display:flex;flex:1;height:calc(100vh - 70px)}aside{width:280px;flex-shrink:0;background:var(--panel);border-right:1px solid var(--border);overflow-y:auto;display:flex;flex-direction:column}
+.sidebar-search{padding:12px;border-bottom:1px solid var(--border)}.sidebar-search input{width:100%;background:var(--bg);border:1px solid var(--border);border-radius:var(--radius);padding:8px 12px;color:var(--text);font-size:13px;outline:none}.sidebar-search input:focus{border-color:var(--accent)}
+.sidebar-nav{display:flex;border-bottom:1px solid var(--border)}.nav-tab{flex:1;padding:9px 4px;text-align:center;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all 0.15s;background:none;border-top:none;border-left:none;border-right:none}.nav-tab:hover{color:var(--text);background:var(--panel2)}.nav-tab.active{color:var(--accent);border-bottom-color:var(--accent)}
+.tema-list{flex:1;padding:8px 0}.tema-item{display:flex;align-items:center;gap:8px;padding:9px 14px;cursor:pointer;border-left:3px solid transparent;transition:all 0.15s}.tema-item:hover{background:var(--panel2)}.tema-item.active{background:var(--panel2);border-left-color:var(--accent)}.tema-item.exempt .tema-num{background:var(--muted);opacity:0.6}.tema-num{width:26px;height:26px;border-radius:50%;background:var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;color:#fff}.tema-name{font-size:11.5px;color:var(--text);line-height:1.3;flex:1}.tema-counter{display:flex;align-items:center;flex-shrink:0}.counter-badge{min-width:20px;height:20px;border-radius:10px;background:var(--border);color:var(--muted);font-size:10.5px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px}.counter-badge.has-count{background:var(--accent);color:#fff}
+main{flex:1;overflow-y:auto;padding:28px;display:flex;flex-direction:column;gap:0}
+.welcome{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;text-align:center;gap:16px;color:var(--muted)}.welcome .icon{font-size:64px;opacity:0.3}.welcome h2{font-size:22px;color:var(--text);opacity:0.7}.welcome p{font-size:14px;max-width:400px;line-height:1.6}
+.tema-view{display:none;flex-direction:column;gap:24px}.tema-view.visible{display:flex}.qr-view{display:none;flex-direction:column;gap:20px}.qr-view.visible{display:flex}
+.tema-header{background:linear-gradient(135deg,var(--accent2),#1e3a5f);border-radius:12px;padding:22px 26px;position:relative;overflow:hidden}.tema-header::before{content:'';position:absolute;right:-20px;top:-20px;width:120px;height:120px;background:rgba(255,255,255,0.04);border-radius:50%}.tema-eyebrow{font-size:11px;font-weight:700;letter-spacing:2px;color:rgba(255,255,255,0.5);text-transform:uppercase;margin-bottom:6px}.tema-header h2{font-size:20px;font-weight:800;color:#fff;line-height:1.2}.tema-actions{display:flex;gap:14px;margin-top:16px;flex-wrap:wrap;align-items:center}.study-counter-wrap{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.1);border-radius:10px;padding:8px 14px}.study-counter-label{font-size:11px;color:rgba(255,255,255,0.7);font-weight:600;text-transform:uppercase;letter-spacing:0.5px}.study-counter-value{font-size:22px;font-weight:800;color:#fff;min-width:30px;text-align:center}.study-counter-btn{width:30px;height:30px;border-radius:8px;border:none;background:rgba(255,255,255,0.15);color:#fff;font-size:16px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background 0.15s}.study-counter-btn:hover{background:var(--gold);color:#000}
+.content-card{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:24px}.card-title{font-size:13px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--accent);margin-bottom:16px;display:flex;align-items:center;gap:8px}.card-title::before{content:'';display:inline-block;width:4px;height:16px;background:var(--accent);border-radius:2px}
+.summary-content h3{font-size:16px;font-weight:700;color:var(--gold);margin:20px 0 8px;border-bottom:1px solid var(--border);padding-bottom:6px}.summary-content h3:first-child{margin-top:0}.summary-content h4{font-size:14px;font-weight:600;color:var(--accent);margin:14px 0 6px}.summary-content p{font-size:13.5px;line-height:1.7;color:var(--text);margin-bottom:10px}.summary-content ul,.summary-content ol{margin:8px 0 12px 20px}.summary-content li{font-size:13.5px;line-height:1.6;color:var(--text);margin-bottom:4px}.summary-content strong{color:#fff}.summary-content table{width:100%;border-collapse:collapse;margin:12px 0;font-size:13px}.summary-content th{background:var(--panel2);padding:8px 10px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);border-bottom:1px solid var(--border)}.summary-content td{padding:8px 10px;border-bottom:1px solid var(--border)}.summary-content .alert{background:rgba(37,99,235,0.12);border-left:4px solid var(--accent);border-radius:0 var(--radius) var(--radius) 0;padding:10px 14px;margin:12px 0;font-size:13px}.summary-content .alert-warn{background:rgba(245,158,11,0.12);border-left-color:var(--gold)}
+.svg-diagram{background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px;margin:16px 0}.svg-diagram svg{width:100%;height:auto;display:block}.svg-caption{text-align:center;font-size:11px;color:var(--muted);margin-top:8px;font-style:italic}
+.exempt-notice{background:var(--panel2);border:1px solid var(--border);border-radius:12px;padding:32px;text-align:center;color:var(--muted)}.exempt-notice .icon{font-size:40px;margin-bottom:12px}.exempt-notice h3{color:var(--text);margin-bottom:8px}.exempt-notice p{font-size:13px;line-height:1.6;max-width:400px;margin:0 auto}
+.escala-badge{background:var(--accent2);color:#fff;font-size:9px;font-weight:700;padding:2px 7px;border-radius:10px;letter-spacing:0.5px;text-transform:uppercase;margin-left:6px}
+.qr-section{background:linear-gradient(135deg,#1a2a4a,#0f1d35);border:1px solid var(--border);border-radius:12px;padding:20px 24px}.qr-title{font-size:22px;font-weight:800;color:#fff;margin-bottom:6px}.qr-subtitle{font-size:13px;color:var(--muted)}
+.qr-tabs{display:flex;gap:8px;flex-wrap:wrap}.qr-tab{background:var(--panel);border:1px solid var(--border);border-radius:8px;padding:10px 18px;color:var(--muted);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s}.qr-tab:hover{border-color:var(--accent);color:var(--text)}.qr-tab.active{background:var(--accent);border-color:var(--accent);color:#fff}
+.qr-panel{display:none;flex-direction:column;gap:16px}.qr-panel.active{display:flex}
+.qr-card{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px}.qr-card h3{font-size:14px;font-weight:700;color:var(--gold);margin-bottom:12px}.qr-card.warn{border-color:var(--gold);background:rgba(245,158,11,0.07)}.qr-card ul{margin:0 0 0 18px}.qr-card li{font-size:13px;line-height:1.6;color:var(--text);margin-bottom:4px}.qr-card strong{color:#fff}
+.qr-grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}.qr-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.qr-box{border-radius:12px;padding:20px;text-align:center;border:2px solid transparent}.qr-box.danger{background:rgba(239,68,68,0.1);border-color:var(--danger)}.qr-box.warn{background:rgba(245,158,11,0.1);border-color:var(--gold)}.qr-box.success{background:rgba(16,185,129,0.1);border-color:var(--success)}.qr-box.accent{background:rgba(37,99,235,0.1);border-color:var(--accent)}.qr-box-label{font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted);margin-bottom:8px}.qr-box-art{font-size:36px;font-weight:900;color:#fff;margin-bottom:6px}.qr-box-detail{font-size:11px;color:var(--muted);line-height:1.5}
+.qr-table{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:4px}.qr-table th{background:var(--panel2);padding:6px 10px;text-align:left;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:0.5px;color:var(--muted);border-bottom:1px solid var(--border)}.qr-table td{padding:7px 10px;border-bottom:1px solid var(--border);color:var(--text)}.qr-table strong{color:#fff}
+.qr-flashcard-wrap{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:18px}.qr-flashcard-wrap h3{font-size:13px;font-weight:700;color:var(--gold);margin-bottom:14px}.flashcard{background:var(--panel2);border:1px solid var(--border);border-radius:10px;min-height:110px;padding:20px;cursor:pointer;display:flex;align-items:center;justify-content:center;text-align:center;transition:background 0.2s;user-select:none}.flashcard:hover{background:#1e2f4a}.fc-front{font-size:15px;font-weight:600;color:var(--text)}.fc-back{font-size:14px;color:var(--success);font-weight:700}.fc-controls{display:flex;align-items:center;justify-content:space-between;margin-top:12px}.fc-controls button{background:var(--bg);border:1px solid var(--border);border-radius:6px;padding:6px 14px;color:var(--text);font-size:12px;cursor:pointer}.fc-controls button:hover{border-color:var(--accent);color:var(--accent)}.fc-controls span{font-size:12px;color:var(--muted)}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+@media(max-width:700px){.app{flex-direction:column;height:auto}aside{width:100%;height:260px;border-right:none;border-bottom:1px solid var(--border)}main{padding:16px}.progress-bar-wrap{display:none}.qr-grid2,.qr-grid3{grid-template-columns:1fr}}
+/* ── EDIT MODE ── */
+.edit-btn{background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);border-radius:8px;color:#fff;font-size:12px;font-weight:600;padding:7px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;transition:all 0.15s}.edit-btn:hover{background:rgba(245,158,11,0.3);border-color:var(--gold)}.edit-btn.active{background:var(--gold);color:#000;border-color:var(--gold)}
+.edit-toolbar{display:none;gap:6px;flex-wrap:wrap;padding:10px 14px;background:var(--panel2);border:1px solid var(--gold);border-radius:8px;margin-bottom:12px;align-items:center}.edit-toolbar.show{display:flex}.tb-hint{font-size:11px;color:var(--muted);flex-basis:100%;margin-bottom:2px}.tb-btn{background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--text);font-size:12px;padding:4px 10px;cursor:pointer;font-family:monospace}.tb-btn:hover{border-color:var(--accent);color:var(--accent)}.tb-sep{width:1px;height:20px;background:var(--border);margin:0 3px}
+.edit-savebar{display:none;gap:8px;margin-top:12px}.edit-savebar.show{display:flex}.btn-save{background:var(--success);border:none;border-radius:8px;color:#fff;font-size:13px;font-weight:700;padding:9px 20px;cursor:pointer;flex:1}.btn-save:hover{opacity:0.9}.btn-restore{background:var(--bg);border:1px solid var(--border);border-radius:8px;color:var(--muted);font-size:13px;padding:9px 16px;cursor:pointer}.btn-restore:hover{border-color:var(--danger);color:var(--danger)}
+.summary-content[contenteditable="true"]{outline:2px dashed var(--gold);border-radius:6px;padding:8px;min-height:60px;caret-color:var(--gold)}
+.notes-card{background:var(--panel);border:2px dashed var(--border);border-radius:12px;padding:20px;margin-top:0}.notes-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}.notes-label{font-size:12px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted)}.notes-saved{font-size:10px;color:var(--success);opacity:0;transition:opacity 0.4s}.notes-saved.show{opacity:1}.notes-textarea{width:100%;min-height:90px;background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:12px;color:var(--text);font-size:13.5px;line-height:1.7;font-family:var(--font);resize:vertical;outline:none;transition:border-color 0.15s}.notes-textarea:focus{border-color:var(--gold)}.notes-textarea::placeholder{color:var(--muted);font-style:italic}
+.mod-badge{display:none;font-size:9px;font-weight:700;background:var(--gold);color:#000;padding:2px 6px;border-radius:8px;margin-left:6px;vertical-align:middle}.mod-badge.show{display:inline}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">UIP</div>
+  <div class="header-title">
+    <h1>Manual UIP 2025 <span class="escala-badge">Escala Básica · Temas 1-25</span></h1>
+    <p>Jefatura de Unidades de Intervención Policial — Sección de Formación</p>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-label"><span id="totalSessions">0</span> repasos totales</div>
+    <div class="progress-bar"><div class="progress-fill" id="progressFill" style="width:0%"></div></div>
+  </div>
+</header>
+<div class="app">
+  <aside>
+    <div class="sidebar-search"><input type="text" id="searchInput" placeholder="🔍 Buscar tema..." oninput="filterTemas(this.value)"></div>
+    <div class="sidebar-nav">
+      <button class="nav-tab active" id="nav-temas" onclick="showView('temas')">📚 Temas</button>
+      <button class="nav-tab" id="nav-qr" onclick="showView('qr')">🎯 Repaso</button>
+    </div>
+    <div class="tema-list" id="temaList"></div>
+  </aside>
+  <main id="main">
+    <div class="welcome" id="welcome">
+      <div class="icon">🛡️</div>
+      <h2>Escala Básica — Temas 1 a 25</h2>
+      <p>Selecciona un tema para estudiar, o usa la pestaña <strong>🎯 Repaso</strong> para revisar LO 4/2015, posiciones y diferencias entre unidades.</p>
+    </div>
+    <div class="tema-view" id="temaView">
+      <div class="tema-header">
+        <div class="tema-eyebrow" id="viewEyebrow">TEMA 1</div>
+        <h2 id="viewTitle"></h2>
+        <div class="tema-actions">
+          <div class="study-counter-wrap">
+            <span class="study-counter-label">Repasos</span>
+            <button class="study-counter-btn" onclick="changeCount(-1)">−</button>
+            <span class="study-counter-value" id="counterValue">0</span>
+            <button class="study-counter-btn" onclick="changeCount(1)">+</button>
+          </div>
+          <button class="edit-btn" id="editBtn" onclick="toggleEdit()">✏️ Editar</button>
+        </div>
+      </div>
+      <div class="content-card" id="resumenCard">
+        <div class="card-title">Resumen del Tema <span class="mod-badge" id="modBadge">EDITADO</span></div>
+        <div class="edit-toolbar" id="editToolbar">
+          <span class="tb-hint">Selecciona texto y aplica formato, o escribe directamente sobre el contenido:</span>
+          <button class="tb-btn" onclick="fmt('bold')"><b>N</b></button>
+          <button class="tb-btn" onclick="fmt('italic')"><i>C</i></button>
+          <div class="tb-sep"></div>
+          <button class="tb-btn" onclick="insertList()">+ Lista</button>
+          <button class="tb-btn" onclick="insertAlert()">+ Alerta</button>
+          <div class="tb-sep"></div>
+          <button class="tb-btn" onclick="doUndo()" title="Deshacer último cambio">↩ Deshacer</button>
+        </div>
+        <div class="edit-savebar" id="editSavebar">
+          <button class="btn-save" onclick="saveEdit()">💾 Guardar cambios</button>
+          <button class="btn-restore" onclick="restoreOriginal()">↩ Restaurar original</button>
+        </div>
+        <div id="resumenContent"></div>
+      </div>
+    </div>
+    <div class="notes-card" id="notesCard" style="display:none">
+      <div class="notes-header">
+        <span class="notes-label">📝 Mis notas</span>
+        <span class="notes-saved" id="notesSaved">✓ Guardado</span>
+      </div>
+      <textarea class="notes-textarea" id="notesArea" placeholder="Añade aquí tus anotaciones, correcciones o datos adicionales para este tema. Se guardan automáticamente."></textarea>
+    </div>
+    <div class="qr-view" id="qrView">
+      
+<div class="qr-section">
+  <h2 class="qr-title">🎯 Repaso Rápido de Examen</h2>
+  <p class="qr-subtitle">Puntos con mayor probabilidad de pregunta según el temario</p>
+</div>
+
+<div class="qr-tabs">
+  <button class="qr-tab active" onclick="showQR('lo4', this)">LO 4/2015</button>
+  <button class="qr-tab" onclick="showQR('pos', this)">Posiciones UIP</button>
+  <button class="qr-tab" onclick="showQR('uni', this)">EO · SO · GO</button>
+</div>
+
+<!-- ═══ LO 4/2015 ═══ -->
+<div id="qr-lo4" class="qr-panel active">
+  <div class="qr-card warn">
+    <h3>⚠️ Regla clave: menor número = mayor gravedad</h3>
+    <p>Art. <strong>35</strong> = Muy graves · Art. <strong>36</strong> = Graves · Art. <strong>37</strong> = Leves<br>
+    <strong>Art. 35 solo tiene 4 apartados</strong> (35.1 a 35.4). El resto de infracciones numéricamente altas (36.6, 36.23, 37.4...) son graves o leves.</p>
+  </div>
+
+  <div class="qr-grid3">
+    <div class="qr-box danger">
+      <div class="qr-box-label">MUY GRAVES — Art. 35</div>
+      <div class="qr-box-art">4</div>
+      <div class="qr-box-detail">apartados (35.1 a 35.4)<br>Multa: <strong>30.001 – 600.000 €</strong><br>Prescripción sanción: <strong>3 años</strong></div>
+    </div>
+    <div class="qr-box warn">
+      <div class="qr-box-label">GRAVES — Art. 36</div>
+      <div class="qr-box-art">23</div>
+      <div class="qr-box-detail">apartados (36.1 a 36.23)<br>Multa: <strong>601 – 30.000 €</strong><br>Prescripción sanción: <strong>2 años</strong></div>
+    </div>
+    <div class="qr-box success">
+      <div class="qr-box-label">LEVES — Art. 37</div>
+      <div class="qr-box-art">17</div>
+      <div class="qr-box-detail">apartados (37.1 a 37.17)<br>Multa: <strong>100 – 600 €</strong><br>Prescripción sanción: <strong>1 año</strong></div>
+    </div>
+  </div>
+
+  <div class="qr-grid2">
+    <div class="qr-card">
+      <h3>🔴 Art. 35 — MUY GRAVES (los 4 exactos)</h3>
+      <table class="qr-table">
+        <tr><th>Apt.</th><th>Conducta</th></tr>
+        <tr><td><strong>35.1</strong></td><td>Reuniones/manifestaciones no comunicadas o prohibidas en infraestructuras de servicios básicos <strong>cuando generen riesgo para la vida o integridad física</strong>. Incluye intrusión en dichos recintos y su sobrevuelo.</td></tr>
+        <tr><td><strong>35.2</strong></td><td>Fabricación, almacenamiento, comercio... de armas, explosivos o artículos pirotécnicos sin cumplir la normativa <strong>cuando se causen perjuicios muy graves</strong>.</td></tr>
+        <tr><td><strong>35.3</strong></td><td>Celebración de espectáculos o actividades recreativas <strong>quebrantando la prohibición o suspensión</strong> ordenada por la autoridad por razones de seguridad.</td></tr>
+        <tr><td><strong>35.4</strong></td><td>Proyección de <strong>haces de luz</strong> sobre pilotos o conductores de medios de transporte que puedan deslumbrarles y provocar accidentes.</td></tr>
+      </table>
+    </div>
+    <div class="qr-card">
+      <h3>🟡 Art. 36 — GRAVES más relevantes para el examen</h3>
+      <table class="qr-table">
+        <tr><th>Apt.</th><th>Conducta</th></tr>
+        <tr><td><strong>36.1</strong></td><td>Perturbación de la seguridad en actos públicos, espectáculos deportivos, culturales, oficios religiosos u otras reuniones numerosas.</td></tr>
+        <tr><td><strong>36.2</strong></td><td>Perturbación grave frente a sedes del Congreso, Senado y asambleas legislativas autonómicas.</td></tr>
+        <tr><td><strong>36.4</strong></td><td>Obstrucción al ejercicio legítimo de funciones de autoridades o empleados públicos.</td></tr>
+        <tr><td><strong>36.6</strong></td><td><strong>Desobediencia o resistencia a la autoridad</strong>; <strong>negativa a identificarse</strong> o datos falsos — cuando no sea delito.</td></tr>
+        <tr><td><strong>36.7</strong></td><td><strong>Negativa a la disolución</strong> de reuniones/manifestaciones ordenada por la autoridad (supuestos Art. 5 LO 9/83).</td></tr>
+        <tr><td><strong>36.16</strong></td><td>Consumo o tenencia ilícitos de drogas en lugares públicos o transportes colectivos.</td></tr>
+        <tr><td><strong>36.23</strong></td><td>Uso no autorizado de imágenes o datos de miembros de las FCS que ponga en peligro su seguridad o el éxito de una operación.</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <div class="qr-card">
+    <h3>🟢 Art. 37 — LEVES más relevantes para el examen</h3>
+    <table class="qr-table">
+      <tr><th>Apt.</th><th>Conducta</th></tr>
+      <tr><td><strong>37.1</strong></td><td>Celebración de reuniones o manifestaciones incumpliendo la LO 9/83 (arts. 4.2, 8, 9, 10 y 11). Responsabilidad de organizadores o promotores.</td></tr>
+      <tr><td><strong>37.4</strong></td><td><strong>Faltas de respeto y consideración</strong> a miembros de las FCS en ejercicio de sus funciones — cuando no sea infracción penal.</td></tr>
+      <tr><td><strong>37.7</strong></td><td>Ocupación de inmueble o vivienda ajena contra la voluntad del propietario — cuando no sea delito. Incluye venta ambulante no autorizada.</td></tr>
+      <tr><td><strong>37.13</strong></td><td>Daños o <strong>deslucimiento de bienes</strong> de uso público o privados en la vía pública — cuando no sea delito.</td></tr>
+      <tr><td><strong>37.16</strong></td><td>Dejar sueltos animales feroces o dañinos; abandono de animales domésticos en peligro para su vida.</td></tr>
+      <tr><td><strong>37.17</strong></td><td>Consumo de bebidas alcohólicas en lugares o transportes públicos cuando <strong>perturbe gravemente la tranquilidad ciudadana</strong>.</td></tr>
+    </table>
+  </div>
+
+  <div class="qr-grid2">
+    <div class="qr-card">
+      <h3>🔑 Datos clave para el examen</h3>
+      <ul>
+        <li>DNI obligatorio desde los <strong>14 años</strong></li>
+        <li>Menores de <strong>14 años</strong> → exentos de responsabilidad (aviso al Fiscal)</li>
+        <li>Pago voluntario: reducción del <strong>50%</strong>, plazo <strong>15 días hábiles</strong></li>
+        <li>Art. 16 → <strong>2 supuestos</strong> de identificación: indicios de infracción + prevención de delito</li>
+        <li>Art. 17 → registro corporal: agente del <strong>mismo sexo</strong>, principio de injerencia mínima</li>
+        <li>Art. 43 → <strong>Registro Central de Infracciones</strong> contra la Seguridad Ciudadana</li>
+        <li>Art. 7 → deber de colaboración: FCS pueden pedir ayuda a particulares; indemnización si sufren daños</li>
+        <li>Multa mínima leves: <strong>100 €</strong> (no 0 €)</li>
+      </ul>
+    </div>
+    <div class="qr-card">
+      <h3>⚖️ Prescripción — distínguelas bien</h3>
+      <table class="qr-table">
+        <tr><th>Tipo</th><th>Prescripción infracción (Art. 38)</th><th>Prescripción sanción (Art. 40)</th></tr>
+        <tr><td>Muy graves</td><td>No recogida expresamente</td><td><strong>3 años</strong></td></tr>
+        <tr><td>Graves</td><td><strong>1 año</strong></td><td><strong>2 años</strong></td></tr>
+        <tr><td>Leves</td><td><strong>6 meses</strong></td><td><strong>1 año</strong></td></tr>
+      </table>
+      <p style="font-size:11.5px;color:var(--muted);margin-top:10px">La prescripción de la infracción se computa desde que se comete. La de la sanción desde que adquiere firmeza en vía administrativa.</p>
+    </div>
+  </div>
+
+  <div class="qr-flashcard-wrap">
+    <h3>⚡ Flashcards — LO 4/2015</h3>
+    <div class="flashcard" id="fc-lo4" onclick="flipCard('lo4')">
+      <div class="fc-front" id="fc-lo4-front"></div>
+      <div class="fc-back" id="fc-lo4-back" style="display:none"></div>
+    </div>
+    <div class="fc-controls">
+      <button onclick="prevCard('lo4')">← Anterior</button>
+      <span id="fc-lo4-counter">1 / 12</span>
+      <button onclick="nextCard('lo4')">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ POSICIONES ═══ -->
+<div id="qr-pos" class="qr-panel">
+  <div class="qr-card warn">
+    <h3>💡 Clave de posiciones</h3>
+    <p>Todas las órdenes en <strong>dos tiempos</strong>: voz preventiva (indica qué) + voz ejecutiva <strong>"YA"</strong> (se ejecuta). Con silbato: toque largo preventivo + toque corto ejecutivo.</p>
+  </div>
+  <div class="qr-grid2">
+    <div class="qr-card">
+      <h3>🦺 Defensa (6 posiciones)</h3>
+      <table class="qr-table">
+        <tr><th>Posición</th><th>Descripción</th></tr>
+        <tr><td>En transporte / mano a la espalda</td><td>Posición básica</td></tr>
+        <tr><td>Oculta</td><td>Defensa oculta al cuerpo</td></tr>
+        <tr><td>Horizontal baja</td><td>A la altura de la cadera</td></tr>
+        <tr><td>Horizontal media</td><td>A la altura del tórax</td></tr>
+        <tr><td>Horizontal oculta</td><td>Horizontal a la espalda</td></tr>
+        <tr><td>Terciada</td><td>Diagonal sobre el cuerpo</td></tr>
+      </table>
+    </div>
+    <div class="qr-card">
+      <h3>🛡️ Escudo (5 posiciones)</h3>
+      <table class="qr-table">
+        <tr><th>Posición</th><th>Uso</th></tr>
+        <tr><td>Natural / transporte</td><td>Posición básica, desplazamiento</td></tr>
+        <tr><td>Protección media (línea)</td><td>Protección estándar en línea</td></tr>
+        <tr><td>Protección alta</td><td>Amenaza frontal elevada</td></tr>
+        <tr><td>Protección superior</td><td>Amenaza desde arriba</td></tr>
+        <tr><td>Protección baja</td><td>Amenaza a nivel piernas</td></tr>
+      </table>
+    </div>
+    <div class="qr-card">
+      <h3>🔫 Escopeta / Bocacha (5 posiciones)</h3>
+      <table class="qr-table">
+        <tr><th>Posición</th><th>Descripción</th></tr>
+        <tr><td>Terciada</td><td>Transporte segura</td></tr>
+        <tr><td>Acunada</td><td>Lista para uso inmediato</td></tr>
+        <tr><td>A la cadera</td><td>Posición de disparo</td></tr>
+        <tr><td>A la pierna</td><td>Boca hacia abajo / piernas</td></tr>
+        <tr><td>En transporte / atalaje mochila</td><td>Con mochila portamaterial</td></tr>
+      </table>
+    </div>
+    <div class="qr-card">
+      <h3>🪖 Casco (2) · 🔫 Arma larga (3)</h3>
+      <table class="qr-table">
+        <tr><th>Posición</th><th>Descripción</th></tr>
+        <tr><td>Casco en transporte</td><td>Posición básica</td></tr>
+        <tr><td>Casco en protección</td><td>Puesto y visera cerrada</td></tr>
+        <tr><td>Arma larga: terciada</td><td>Transporte</td></tr>
+        <tr><td>Arma larga: en vigilancia</td><td>Preparada, sin apuntar</td></tr>
+        <tr><td>Arma larga: en alerta</td><td>Lista para disparar</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="qr-card">
+    <h3>📐 Formaciones y código de señales (12 señales)</h3>
+    <table class="qr-table">
+      <tr><th>Formación</th><th>Uso principal</th></tr>
+      <tr><td><strong>Columna</strong></td><td>Desplazamientos, introducirse en masa densa</td></tr>
+      <tr><td><strong>Columna de a dos</strong></td><td>Masa pacífica y poco densa</td></tr>
+      <tr><td><strong>Columna de a tres</strong></td><td>Espacios amplios, desplazamientos rápidos</td></tr>
+      <tr><td><strong>Línea</strong></td><td>Contención, canalización y filtros</td></tr>
+      <tr><td><strong>Línea de a dos</strong></td><td>Actuar por binomios con material antidisturbios</td></tr>
+      <tr><td><strong>Masa</strong></td><td>Máxima disuasión, punto de partida para intervención</td></tr>
+      <tr><td><strong>Cuña directa</strong></td><td>Masas hostiles / densas, protección de personalidades</td></tr>
+      <tr><td><strong>Cuña inversa</strong></td><td>Conducir masa, proteger personalidad con contacto visual</td></tr>
+      <tr><td><strong>Casco en protección</strong></td><td>Ponerse el casco y cerrar la visera</td></tr>
+      <tr><td><strong>Arranque de vehículos</strong></td><td>Orden de subir y arrancar</td></tr>
+      <tr><td><strong>Al costado de vehículos</strong></td><td>Posición de protección lateral junto al vehículo</td></tr>
+      <tr><td><strong>Sobre vehículos</strong></td><td>Subir al vehículo</td></tr>
+    </table>
+  </div>
+  <div class="qr-flashcard-wrap">
+    <h3>⚡ Flashcards — Posiciones</h3>
+    <div class="flashcard" id="fc-pos" onclick="flipCard('pos')">
+      <div class="fc-front" id="fc-pos-front"></div>
+      <div class="fc-back" id="fc-pos-back" style="display:none"></div>
+    </div>
+    <div class="fc-controls">
+      <button onclick="prevCard('pos')">← Anterior</button>
+      <span id="fc-pos-counter">1 / 8</span>
+      <button onclick="nextCard('pos')">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ UNIDADES ═══ -->
+<div id="qr-uni" class="qr-panel">
+  <div class="qr-grid3">
+    <div class="qr-box accent">
+      <div class="qr-box-label">EQUIPO OPERATIVO</div>
+      <div class="qr-box-art">7</div>
+      <div class="qr-box-detail">1 Oficial + 6 Policías<br><em>Unidad básica</em></div>
+    </div>
+    <div class="qr-box warn">
+      <div class="qr-box-label">SUBGRUPO OPERATIVO</div>
+      <div class="qr-box-art">15</div>
+      <div class="qr-box-detail">1 Subinsp. + 2 Of. + 12 Pol.<br><em>Unidad elemental táctica (mín. en OP)</em></div>
+    </div>
+    <div class="qr-box success">
+      <div class="qr-box-label">GRUPO OPERATIVO</div>
+      <div class="qr-box-art">50</div>
+      <div class="qr-box-detail">1 Insp. + 3 Subinsp. + 7 Of. + 39 Pol.<br><em>Unidad fundamental de empleo</em></div>
+    </div>
+  </div>
+  <div class="qr-grid2">
+    <div class="qr-card">
+      <h3>🎖️ Mando y definición</h3>
+      <table class="qr-table">
+        <tr><th>Unidad</th><th>Mando</th><th>Definición</th></tr>
+        <tr><td><strong>EO</strong></td><td>Oficial</td><td>Unidad <strong>básica</strong> (salvo en OP)</td></tr>
+        <tr><td><strong>SO</strong></td><td>Subinspector</td><td>Unidad elemental <strong>táctica</strong> y mínima en OP</td></tr>
+        <tr><td><strong>GO</strong></td><td>Inspector</td><td>Unidad <strong>fundamental</strong> de organización y empleo</td></tr>
+      </table>
+    </div>
+    <div class="qr-card">
+      <h3>🔀 Unidades derivadas</h3>
+      <table class="qr-table">
+        <tr><th>Unidad</th><th>Composición</th><th>Misión</th></tr>
+        <tr><td><strong>PAR</strong></td><td>Mín. 3 componentes (x2 por EO)</td><td>Preventiva y de reacción antiterrorista</td></tr>
+        <tr><td><strong>SOAR</strong></td><td>4 PAR, dirigido por Jefe de SO</td><td>Dispositivos antiterroristas</td></tr>
+      </table>
+    </div>
+  </div>
+  <div class="qr-card">
+    <h3>🎒 Material colectivo comparado</h3>
+    <table class="qr-table">
+      <tr><th>Material</th><th>EO</th><th>SO</th><th>GO</th></tr>
+      <tr><td>Fusil H&K G36</td><td><strong>1</strong></td><td><strong>2</strong></td><td><strong>7</strong></td></tr>
+      <tr><td>Fusil HK 417</td><td>—</td><td>—</td><td><strong>2</strong></td></tr>
+      <tr><td>Escopeta Franchi + bocacha</td><td><strong>2</strong></td><td><strong>4</strong></td><td><strong>13</strong></td></tr>
+      <tr><td>Escopeta Franchi sin bocacha</td><td>—</td><td><strong>1</strong></td><td><strong>3</strong></td></tr>
+      <tr><td>Escudo balístico</td><td><strong>1</strong></td><td><strong>2</strong></td><td><strong>7</strong></td></tr>
+      <tr><td>Escudo antidisturbios</td><td><strong>3</strong></td><td><strong>6</strong></td><td><strong>19</strong></td></tr>
+      <tr><td>Mochila portamaterial</td><td><strong>2</strong></td><td><strong>4</strong></td><td><strong>13</strong></td></tr>
+      <tr><td>Módulo</td><td>—</td><td><strong>1</strong></td><td><strong>3</strong></td></tr>
+      <tr><td>Maza + Cizalla</td><td>—</td><td><strong>1+1</strong></td><td><strong>3+3</strong></td></tr>
+      <tr><td>Spray MK-9S</td><td>—</td><td><strong>1</strong></td><td><strong>3</strong></td></tr>
+      <tr><td>CZ Scorpion EVO3 A1 🆕</td><td>—</td><td><strong>1</strong></td><td><strong>3</strong></td></tr>
+    </table>
+  </div>
+  <div class="qr-card">
+    <h3>📦 Mochila portamaterial</h3>
+    <ul>
+      <li>2 botes ATL · 2 botes ATF · 25-30 pelotas de caucho · 42 cartuchos de proyección</li>
+    </ul>
+    <p style="font-size:11.5px;color:var(--muted);margin-top:8px">La porta el policía que tiene asignada la escopeta con bocacha.</p>
+  </div>
+  <div class="qr-flashcard-wrap">
+    <h3>⚡ Flashcards — Unidades</h3>
+    <div class="flashcard" id="fc-uni" onclick="flipCard('uni')">
+      <div class="fc-front" id="fc-uni-front"></div>
+      <div class="fc-back" id="fc-uni-back" style="display:none"></div>
+    </div>
+    <div class="fc-controls">
+      <button onclick="prevCard('uni')">← Anterior</button>
+      <span id="fc-uni-counter">1 / 10</span>
+      <button onclick="nextCard('uni')">Siguiente →</button>
+    </div>
+  </div>
+</div>
+
+    </div>
+  </main>
+</div>
+<script>
+const RESUMENES = {
+  "1": `
+<h3>1.1. Origen y Creación</h3>
+<p><strong>Banderas Móviles:</strong> primeras unidades de orden público, años sesenta, con capacidad de desplazamiento propio.</p>
+<p><strong>Compañías de Reserva General (C.R.G.):</strong> antecedente inmediato de las UIP. Primera compañía creada en <strong>Logroño el 15-12-1969</strong>. Se llegaron a crear <strong>22 CRG</strong>.</p>
+<div class="alert"><strong>Creación UIP:</strong> Real Decreto <strong>1668/89, de 29 de diciembre</strong> — crea las UIP y establece el régimen estatutario.</div>
+<h4>Deficiencias de las CRG que motivan la creación de las UIP</h4>
+<ul>
+<li>Número excesivo de Compañías de Reserva General</li>
+<li>Organización carente de funcionalidad en el aspecto operativo</li>
+<li>Inadecuada ubicación</li>
+<li>Falta de rentabilidad en su utilización</li>
+<li>Excesivos gastos de desplazamientos, indemnizaciones, mantenimiento y gestión</li>
+</ul>
+
+<div class="svg-diagram"><svg viewBox="0 0 700 180" xmlns="http://www.w3.org/2000/svg">
+  <line x1="50" y1="90" x2="650" y2="90" stroke="var(--border)" stroke-width="3"/>
+  <circle cx="100" cy="90" r="8" fill="var(--muted)"/>
+  <text x="100" y="65" text-anchor="middle" fill="var(--text)" font-family="sans-serif" font-size="11" font-weight="700">Años 60</text>
+  <text x="100" y="115" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="10">Banderas Móviles</text>
+  <circle cx="280" cy="90" r="10" fill="var(--accent)"/>
+  <text x="280" y="62" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="11" font-weight="700">15-12-1969</text>
+  <text x="280" y="76" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="9">Logroño</text>
+  <text x="280" y="115" text-anchor="middle" fill="var(--text)" font-family="sans-serif" font-size="10" font-weight="600">Iª C.R.G.</text>
+  <text x="280" y="130" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="9">hasta 22 CRG</text>
+  <circle cx="460" cy="90" r="12" fill="var(--gold)"/>
+  <text x="460" y="58" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="12" font-weight="800">29-12-1989</text>
+  <text x="460" y="115" text-anchor="middle" fill="var(--text)" font-family="sans-serif" font-size="11" font-weight="700">RD 1668/89</text>
+  <text x="460" y="130" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="10">Creación UIP</text>
+  <circle cx="620" cy="90" r="10" fill="var(--success)"/>
+  <text x="620" y="62" text-anchor="middle" fill="var(--success)" font-family="sans-serif" font-size="11" font-weight="700">Actualidad</text>
+  <text x="620" y="115" text-anchor="middle" fill="var(--text)" font-family="sans-serif" font-size="10" font-weight="600">12 UIP</text>
+  <text x="620" y="130" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="9">52 grupos</text>
+</svg><div class="svg-caption">Evolución histórica: de las Banderas Móviles a las UIP actuales</div></div><h3>1.2. Definición y Funciones (Art. 1 R.D. 1668/89)</h3>
+<div class="alert"><strong>Definición:</strong> Las UIP son <strong>órganos móviles de seguridad pública</strong> con misión de actuar en todo el territorio nacional, principalmente en supuestos de prevención y de peligro inminente o grave de alteración de la seguridad ciudadana.</div>
+<h4>Misiones</h4>
+<ul>
+<li><strong>a)</strong> Colaboración en la protección de SS.MM. los Reyes y altas personalidades nacionales y extranjeras</li>
+<li><strong>b)</strong> Prevención, mantenimiento y restablecimiento de la seguridad ciudadana</li>
+<li><strong>c)</strong> Intervención en grandes concentraciones de masas, reuniones en lugares de tránsito público, manifestaciones y espectáculos públicos</li>
+<li><strong>d)</strong> Actuación y auxilio en caso de graves calamidades o catástrofes públicas</li>
+<li><strong>e)</strong> Actuación en casos de alerta policial por delitos terroristas o delincuencia común; controles y dispositivos policiales</li>
+<li><strong>f)</strong> Protección de lugares e instalaciones</li>
+<li><strong>g)</strong> Intervención en motines y situaciones de análoga peligrosidad</li>
+</ul>
+
+<h3>1.3. Régimen Jurídico (Capítulo II R.D. 1668/89)</h3>
+<table>
+<tr><th>Artículo</th><th>Contenido</th></tr>
+<tr><td><strong>Art. 3</strong></td><td>Pruebas selectivas de acceso por escalas. Plazas con carácter forzoso sin curso: máximo <strong>1 año</strong></td></tr>
+<tr><td><strong>Art. 4</strong></td><td>Compromiso de permanencia inicial de <strong>3 años</strong> y renovaciones cada <strong>2 años</strong> con pruebas de revalidación</td></tr>
+<tr><td><strong>Art. 5</strong></td><td>Obligatoriedad de realizar ejercicios de adiestramiento. La falta de adecuado estado físico y psíquico supondrá la baja</td></tr>
+<tr><td><strong>Art. 6</strong></td><td>Baja voluntaria comunicada por escrito con <strong>6 meses de antelación</strong> al cumplimiento del período</td></tr>
+<tr><td><strong>Art. 7</strong></td><td>Disponibilidad <strong>permanente</strong>; componentes siempre localizables</td></tr>
+<tr><td><strong>Art. 8</strong></td><td>La adscripción a UIP no implica pérdida del destino anterior</td></tr>
+<tr><td><strong>Art. 9</strong></td><td>Derecho a puntuaciones establecidas en baremos de méritos</td></tr>
+</table>
+
+<h3>1.4. Dependencia</h3>
+<table>
+<tr><th>Tipo</th><th>Dependencia</th></tr>
+<tr><td><strong>Orgánica</strong></td><td>CGSC a través de la JUIP: dirección, coordinación y control</td></tr>
+<tr><td><strong>Funcional</strong></td><td>Responsable del órgano al que se asigne / Jefe de plantilla cuando estén en base / JUIP en servicios de carácter nacional o cuando lo disponga el DAO</td></tr>
+</table>
+
+<h3>1.5. Características de las UIP</h3>
+<ul>
+<li><strong>Disponibilidad permanente</strong> (Art. 7): siempre localizables</li>
+<li><strong>Movilidad:</strong> medios propios; mínimo tiempo, máxima seguridad</li>
+<li><strong>Flexibilidad:</strong> adaptación a cualquier situación; absorber medios de refuerzo</li>
+<li><strong>Maniobrabilidad:</strong> combinar acciones de unidades subordinadas; mantener reserva propia</li>
+<li><strong>Potencia:</strong> resolución de situaciones conflictivas mediante coordinación, capacitación y medios</li>
+</ul>
+
+<h3>1.6. Organización y Estructura</h3>
+<p>La <strong>UIP básica</strong> se estructura en: SOMA + Secretaría + Eq. de mando + Eq. de apoyo + 3 Grupos Operativos (cada uno con Eq. de mando + 3 Subgrupos con 2 Equipos cada uno).</p>
+
+<div class="svg-diagram"><svg viewBox="0 0 700 240" xmlns="http://www.w3.org/2000/svg">
+  <rect x="270" y="10" width="160" height="42" rx="8" fill="var(--accent2)" stroke="var(--accent)" stroke-width="2"/>
+  <text x="350" y="28" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="12" font-weight="800">SOMA</text>
+  <text x="350" y="44" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="sans-serif" font-size="9">Secretaría + Mando + Apoyo</text>
+  <line x1="350" y1="52" x2="350" y2="72" stroke="var(--border)" stroke-width="2"/>
+  <line x1="120" y1="72" x2="580" y2="72" stroke="var(--border)" stroke-width="2"/>
+  <line x1="120" y1="72" x2="120" y2="90" stroke="var(--border)" stroke-width="2"/>
+  <line x1="350" y1="72" x2="350" y2="90" stroke="var(--border)" stroke-width="2"/>
+  <line x1="580" y1="72" x2="580" y2="90" stroke="var(--border)" stroke-width="2"/>
+  <rect x="50" y="90" width="140" height="46" rx="8" fill="var(--panel2)" stroke="var(--gold)" stroke-width="1.5"/>
+  <text x="120" y="110" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="11" font-weight="700">1er GO</text>
+  <text x="120" y="126" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">50 efectivos</text>
+  <rect x="280" y="90" width="140" height="46" rx="8" fill="var(--panel2)" stroke="var(--gold)" stroke-width="1.5"/>
+  <text x="350" y="110" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="11" font-weight="700">2º GO</text>
+  <text x="350" y="126" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">50 efectivos</text>
+  <rect x="510" y="90" width="140" height="46" rx="8" fill="var(--panel2)" stroke="var(--gold)" stroke-width="1.5"/>
+  <text x="580" y="110" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="11" font-weight="700">3er GO</text>
+  <text x="580" y="126" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">reserva táctica</text>
+  <line x1="120" y1="136" x2="120" y2="155" stroke="var(--border)" stroke-width="2"/>
+  <line x1="60" y1="155" x2="180" y2="155" stroke="var(--border)" stroke-width="2"/>
+  <line x1="60" y1="155" x2="60" y2="172" stroke="var(--border)" stroke-width="2"/>
+  <line x1="120" y1="155" x2="120" y2="172" stroke="var(--border)" stroke-width="2"/>
+  <line x1="180" y1="155" x2="180" y2="172" stroke="var(--border)" stroke-width="2"/>
+  <rect x="22" y="172" width="76" height="32" rx="6" fill="var(--bg)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="60" y="192" text-anchor="middle" fill="var(--text)" font-family="sans-serif" font-size="9">SO 1</text>
+  <rect x="104" y="172" width="76" height="32" rx="6" fill="var(--bg)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="142" y="192" text-anchor="middle" fill="var(--text)" font-family="sans-serif" font-size="9">SO 2</text>
+  <rect x="186" y="172" width="76" height="32" rx="6" fill="var(--bg)" stroke="var(--accent)" stroke-width="1.2"/>
+  <text x="224" y="192" text-anchor="middle" fill="var(--text)" font-family="sans-serif" font-size="9">SO 3</text>
+  <text x="350" y="230" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="9">Cada SO = 1 Subinsp. + 2 Of. + 12 Pol. (2 Equipos Operativos)</text>
+</svg><div class="svg-caption">Estructura básica de una UIP: SOMA + 3 Grupos Operativos</div></div><h3>1.7. Despliegue — 12 UIP, 52 Grupos Operativos</h3>
+<table>
+<tr><th>Unidad</th><th>Base</th><th>GOs</th><th>Ámbito Preferente</th></tr>
+<tr><td>UCI</td><td>Madrid</td><td>5+coord.</td><td>Todo el territorio nacional</td></tr>
+<tr><td>I UIP</td><td>Madrid</td><td>12+3coord.</td><td>Madrid y Castilla-La Mancha</td></tr>
+<tr><td>II UIP</td><td>Barcelona</td><td>2</td><td>Cataluña</td></tr>
+<tr><td>III UIP</td><td>Valencia</td><td>5+coord.</td><td>C.Valenciana, <strong>Murcia</strong> y Baleares</td></tr>
+<tr><td>IV UIP</td><td>Sevilla</td><td>5+coord.</td><td>Sevilla, Cádiz, Huelva, Córdoba, Extremadura y Ceuta</td></tr>
+<tr><td>V UIP</td><td>Málaga/Granada</td><td>5</td><td>Málaga, Granada, Almería, Jaén y Melilla</td></tr>
+<tr><td>VI UIP</td><td>Pamplona/Bilbao</td><td>3</td><td>País Vasco y Navarra</td></tr>
+<tr><td>VII UIP</td><td>Valladolid</td><td>2</td><td>Castilla-León</td></tr>
+<tr><td>VIII UIP</td><td>Coruña/Vigo</td><td>5</td><td>Galicia</td></tr>
+<tr><td>IX UIP</td><td>Oviedo</td><td>2</td><td>Asturias y Cantabria</td></tr>
+<tr><td>X UIP</td><td>Las Palmas/Tenerife</td><td>4</td><td>Canarias</td></tr>
+<tr><td>XI UIP</td><td>Zaragoza</td><td>2</td><td>Aragón y Rioja</td></tr>
+</table>
+
+<h3>1.8. Principios de Empleo</h3>
+<ul>
+<li>Constituyen principalmente la <strong>reserva operativa del mando</strong></li>
+<li>Actúan siempre encuadradas orgánicamente con dependencia directa de sus mandos</li>
+<li>Unidad fundamental: <strong>Grupo Operativo</strong></li>
+<li>Unidad elemental táctica mínima en OP: <strong>Subgrupo Operativo</strong></li>
+<li>Unidad básica: <strong>Equipo Operativo</strong></li>
+</ul>
+
+<h3>1.9. Normativa Básica</h3>
+<table>
+<tr><th>Norma</th><th>Contenido</th></tr>
+<tr><td>RD 1668/89 (29-12-1989)</td><td>Creación UIP y régimen estatutario</td></tr>
+<tr><td>O.M. Interior 15-02-1990</td><td>Desarrollo del RD 1668/89</td></tr>
+<tr><td>O.M. Interior 2400/07 (31-07-2007)</td><td>Crea XI UIP (Zaragoza)</td></tr>
+<tr><td>Resolución DGP dic. 1992</td><td>Normas Provisionales de Actuación UIP</td></tr>
+<tr><td>Resolución DGP 11-06-2014</td><td>Proceso y pruebas de revalidación en UIP</td></tr>
+<tr><td>Resolución DGP 06-07-2023</td><td>Uso de la boina como prenda de cabeza</td></tr>
+<tr><td>Circular CGSC 10-10-1996</td><td>Petición y empleo de las UIP</td></tr>
+</table>
+`,
+  "2": `
+<h3>2.1. Marco Legal — Orden INT/430/2014</h3>
+<h4>Tipos de Uniforme</h4>
+<ul>
+<li><strong>Trabajo:</strong> uso habitual en el servicio</li>
+<li><strong>Gala:</strong> actos oficiales y representativos</li>
+<li><strong>Gran Gala:</strong> máxima solemnidad</li>
+<li><strong>Representación:</strong> actos específicos</li>
+</ul>
+
+<h3>2.2. Normas Generales de Uniformidad</h3>
+<table>
+<tr><th>Nº</th><th>Norma</th></tr>
+<tr><td>1º</td><td>Uniforme completo reglamentario en todo momento de servicio</td></tr>
+<tr><td>4º</td><td>No se adoptarán posturas contrarias al decoro propio de la dignidad del cargo</td></tr>
+<tr><td>6º</td><td>El uso de la prenda de cabeza será obligatorio en los lugares exteriores y en los actos en que se determinen</td></tr>
+<tr><td>7º</td><td>Las gafas de protección solar se usarán exclusivamente en lugares abiertos y con intensa luminosidad</td></tr>
+<tr><td>9º</td><td>Personal masculino: cabello corto; pabellones auditivos visibles; cuello no oculto. Barba/bigote/patillas: aseados, no ocultan nudo de corbata</td></tr>
+<tr><td>10º</td><td>Personal femenino: cara completamente despejada; pelo largo recogido con prendedor del color de la uniformidad</td></tr>
+<tr><td>11º</td><td>Prohibido pendientes con uniformidad de trabajo ni piercings visibles. Con Gala/Gran Gala: solo personal femenino, no sobrepasar el lóbulo</td></tr>
+<tr><td>13º</td><td>Prohibido introducir el pantalón dentro de las botas con uniformidad de trabajo</td></tr>
+<tr><td>16º</td><td>En comparecencias judiciales: vestimenta adecuada; prohibido atuendo deportivo</td></tr>
+</table>
+
+<h3>2.3. El Saludo</h3>
+<h4>Tipos de Saludo</h4>
+<table>
+<tr><th>Tipo</th><th>Descripción</th></tr>
+<tr><td><strong>Simbólico (con prenda)</strong></td><td>Mano derecha extendida, dedo corazón toca el botón lateral derecho de la gorra</td></tr>
+<tr><td><strong>Sin prenda de cabeza</strong></td><td>Brazos en paralelo con el cuerpo + fórmula verbal de cortesía</td></tr>
+<tr><td><strong>En formación</strong></td><td>Solo el jefe de la formación adopta la posición de saludo; el resto en firmes</td></tr>
+</table>
+<h4>Procedimientos del Saludo</h4>
+<ul>
+<li><strong>Ciudadanos:</strong> Saludo simbólico + "buenos días/tardes/noches" + "usted"</li>
+<li><strong>Superior/autoridad:</strong> Lo inicia el de menor categoría; "a sus órdenes" + "usted"</li>
+<li><strong>Igual categoría / GC / FAS:</strong> Saludo simbólico recíproco</li>
+<li><strong>Banderas e Himnos:</strong> Saludo simbólico en actos oficiales</li>
+</ul>
+<h4>Obligación de Saludar</h4>
+<ul>
+<li>SS.MM. los Reyes y SS.AA.RR. los Príncipes de Asturias</li>
+<li>Bandera de España, CC.AA. y países extranjeros en actos públicos solemnes</li>
+<li>Himnos Nacionales y extranjeros</li>
+<li>Autoridades civiles y militares y superiores jerárquicos</li>
+<li>Todo ciudadano cuando se dirija a un miembro del CNP o viceversa</li>
+<li>Féretros y cortejo fúnebre en actos oficiales</li>
+</ul>
+<h4>Exenciones</h4>
+<ul>
+<li>Conductores en movimiento cuando el tránsito lo impida</li>
+<li>Personal custodiando o trasladando detenidos</li>
+<li>Personas en servicios especiales de vigilancia/seguimiento sin uniforme</li>
+<li>Cuando las circunstancias de seguridad así lo aconsejen</li>
+</ul>
+<div class="alert-warn">Incumplimiento: corregido según <strong>LO 4/2010, de 20 de mayo, del Régimen Disciplinario del CNP</strong>.</div>
+
+<h3>2.4. Formaciones y Orden Cerrado en UIP</h3>
+<p>Las órdenes se dan en <strong>dos tiempos</strong>:</p>
+<ul>
+<li><strong>Voz preventiva:</strong> indica la posición/despliegue a adoptar</li>
+<li><strong>Voz ejecutiva "YA":</strong> se adopta la posición</li>
+</ul>
+<p>Con el silbato: <strong>toque largo</strong> (preventiva) + señal; <strong>toque corto</strong> (ejecutiva).</p>
+<div class="alert">Tema actualizado en <strong>octubre de 2025</strong>: se actualizó el contenido relativo a las <strong>formaciones en actos protocolarios</strong>.</div>
+<div class="alert-warn"><strong>RD 927/2015, de 16 de octubre:</strong> concede el uso de la bandera de España a la Policía Nacional.</div>
+`,
+  "3": `
+<h3>3.1. Indicativos de las UIP</h3>
+<table>
+<tr><th>Unidad</th><th>Indicativo</th><th>Base</th></tr>
+<tr><td>Jefatura UIP</td><td><strong>MARTE</strong></td><td>—</td></tr>
+<tr><td>U.C.I.</td><td><strong>CAMEL</strong></td><td>Madrid</td></tr>
+<tr><td>I UIP</td><td><strong>PUMA</strong></td><td>Madrid</td></tr>
+<tr><td>II UIP</td><td><strong>JAGUAR</strong></td><td>Barcelona</td></tr>
+<tr><td>III UIP</td><td><strong>ORCA</strong></td><td>Valencia</td></tr>
+<tr><td>IV UIP</td><td><strong>LOBO</strong></td><td>Sevilla</td></tr>
+<tr><td>V UIP</td><td><strong>GAMO</strong></td><td>Málaga/Granada</td></tr>
+<tr><td>VI UIP</td><td><strong>LEÓN</strong></td><td>Pamplona/Bilbao</td></tr>
+<tr><td>VII UIP</td><td><strong>RENO</strong></td><td>Valladolid</td></tr>
+<tr><td>VIII UIP</td><td><strong>RAYA</strong></td><td>Coruña/Vigo</td></tr>
+<tr><td>IX UIP</td><td><strong>COBRA</strong></td><td>Oviedo</td></tr>
+<tr><td>X UIP</td><td><strong>DRAGÓN</strong></td><td>Las Palmas/Tenerife</td></tr>
+<tr><td>XI UIP</td><td><strong>ÁGUILA</strong></td><td>Zaragoza</td></tr>
+</table>
+
+<h3>3.2. Alfabeto ICAO</h3>
+<table>
+<tr><th>Letra</th><th>Fonético</th><th>Letra</th><th>Fonético</th><th>Letra</th><th>Fonético</th></tr>
+<tr><td>A</td><td>ALFA</td><td>J</td><td>JULIET</td><td>S</td><td>SIERRA</td></tr>
+<tr><td>B</td><td>BRAVO</td><td>K</td><td>KILO</td><td>T</td><td>TANGO</td></tr>
+<tr><td>C</td><td>CHARLIE</td><td>L</td><td>LIMA</td><td>U</td><td>UNIFORM</td></tr>
+<tr><td>D</td><td>DELTA</td><td>M</td><td>MIKE</td><td>V</td><td>VICTOR</td></tr>
+<tr><td>E</td><td>ECO</td><td>N</td><td>NOVEMBER</td><td>W</td><td>WHISKI</td></tr>
+<tr><td>F</td><td>FOXTROT</td><td>Ñ</td><td>ÑOÑO</td><td>X</td><td>XRAY</td></tr>
+<tr><td>G</td><td>GOLF</td><td>O</td><td>OSCAR</td><td>Y</td><td>YANKEE</td></tr>
+<tr><td>H</td><td>HOTEL</td><td>P</td><td>PAPA</td><td>Z</td><td>ZULÚ</td></tr>
+<tr><td>I</td><td>INDIA</td><td>Q</td><td>QUÉBEC</td><td></td><td></td></tr>
+</table>
+
+<h3>3.3. Asignación de Indicativos (Ejemplo: I UIP = PUMA)</h3>
+<table>
+<tr><th>Mando</th><th>Indicativo</th></tr>
+<tr><td>Jefe de Unidad</td><td>PUMA</td></tr>
+<tr><td>Coordinadores / Jefes de núcleo</td><td>PUMA 1, PUMA 2…</td></tr>
+<tr><td>Jefes de grupo</td><td>PUMA 10, PUMA 20, PUMA 30…</td></tr>
+<tr><td>Jefes de subgrupo</td><td>PUMA 11, PUMA 14, PUMA 17…</td></tr>
+<tr><td>Jefes de equipo</td><td>PUMA 12, PUMA 13, PUMA 15…</td></tr>
+<tr><td>Patrullas de un equipo</td><td>PUMA-12.1, PUMA-12.2, PUMA-12.3</td></tr>
+</table>
+
+<h3>3.4. SIRDEE</h3>
+<p>Sistema de radiocomunicaciones digitales de emergencia del Estado, de tipo <strong>celular</strong>, con cifrado de extremo a extremo.</p>
+<h4>Grupos Clave</h4>
+<table>
+<tr><th>Grupo</th><th>Código</th><th>Uso</th></tr>
+<tr><td>Nacional UIP</td><td><strong>465</strong></td><td>Cuando concurran varias UIP</td></tr>
+<tr><td>Local UIP</td><td><strong>365</strong></td><td>Cuando solo hay una UIP en servicio</td></tr>
+<tr><td>Coordinación</td><td>303</td><td>Coordinación general</td></tr>
+<tr><td>Compartido PN+GC</td><td>285</td><td>Comunicación conjunta</td></tr>
+</table>
+<h4>Scan Prioritario (Nuevo 2025)</h4>
+<ul>
+<li>Mínimo <strong>2</strong> y máximo <strong>6</strong> comunicaciones simultáneas</li>
+<li>Máximo <strong>3</strong> pueden ser en modo directo</li>
+<li>El primer talkgroup seleccionado tiene <strong>prioridad</strong></li>
+</ul>
+<h4>Comunicados Voz Tipo</h4>
+<table>
+<tr><th>Acción</th><th>Fórmula</th></tr>
+<tr><td>Llamada</td><td>[Destino] — Aquí es — [Origen]</td></tr>
+<tr><td>Acuse de recibo</td><td>[Receptor] — Recibido — [Origen]</td></tr>
+<tr><td>Comunicados urgentes</td><td>Atención, Atención, Atención</td></tr>
+<tr><td>Correcciones</td><td>Corrijo</td></tr>
+<tr><td>Deletrear</td><td>Codifico</td></tr>
+</table>
+`,
+  "4": `
+<h3>4.1. Vehículos</h3>
+<h4>Camión Lanza Agua (Iveco Traker 410)</h4>
+<table>
+<tr><th>Dato</th><th>Valor</th></tr>
+<tr><td>Potencia</td><td><strong>441 CV – Tracción 4x4</strong></td></tr>
+<tr><td>Agua</td><td><strong>7.000 L</strong></td></tr>
+<tr><td>Colorante</td><td><strong>60 L</strong></td></tr>
+<tr><td>Gas</td><td><strong>60 L</strong></td></tr>
+<tr><td>Espuma</td><td><strong>100 L</strong></td></tr>
+<tr><td>Elementos</td><td>Lanza superior, lanza inferior, pala, cabrestante, cámaras, protección fuego, neumáticos de seguridad</td></tr>
+</table>
+<h4>Uro VAMTAC</h4>
+<ul>
+<li>Potencia: <strong>188 CV</strong> — Automático — Tracción <strong>4x4 permanente</strong></li>
+<li>Peso: <strong>3.800 Kg</strong> — ABS — Vadeo: <strong>80 cm</strong></li>
+</ul>
+<h4>VIPA 6x6</h4>
+<table>
+<tr><th>Dato</th><th>Valor</th></tr>
+<tr><td>Velocidad máxima</td><td><strong>96 km/h</strong></td></tr>
+<tr><td>Pendiente máxima</td><td><strong>60%</strong></td></tr>
+<tr><td>Autonomía</td><td><strong>800 km</strong></td></tr>
+<tr><td>PMA</td><td><strong>14.000 kg</strong></td></tr>
+<tr><td>Carga útil</td><td><strong>2.250 kg</strong></td></tr>
+<tr><td>Radio de giro</td><td><strong>7,5 m</strong></td></tr>
+<tr><td>Tara</td><td><strong>11.750 kg</strong></td></tr>
+</table>
+<h4>VEMAC — Vehículo de Mando y Control (🆕 2025)</h4>
+<div class="alert">Recurso móvil para <strong>dirección y coordinación táctica</strong> de dispositivos operativos complejos. Comunicaciones seguras, gestión de información e imágenes en tiempo real. Permite establecer un <strong>puesto de mando avanzado</strong>.</div>
+<h4>EMIR — Equipo Mecánico de Intervención Rápida (🆕 2025)</h4>
+<div class="alert">Vehículo de apoyo técnico con herramientas, compresores, generadores y material especializado para <strong>reparaciones de emergencia</strong> a los vehículos UIP durante los despliegues.</div>
+
+<div class="svg-diagram"><svg viewBox="0 0 700 370" xmlns="http://www.w3.org/2000/svg">
+  <rect x="10" y="10" width="210" height="160" rx="10" fill="var(--panel2)" stroke="var(--accent)" stroke-width="1.5"/>
+  <rect x="10" y="10" width="210" height="32" rx="10" fill="var(--accent2)"/>
+  <text x="115" y="31" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="11" font-weight="700">IVECO TRAKER (Lanza Agua)</text>
+  <text x="25" y="62" fill="var(--text)" font-family="sans-serif" font-size="9">⚡ Potencia: <tspan font-weight="700" fill="#fff">441 CV – 4x4</tspan></text>
+  <text x="25" y="78" fill="var(--text)" font-family="sans-serif" font-size="9">💧 Agua: <tspan font-weight="700" fill="#fff">7.000 L</tspan></text>
+  <text x="25" y="94" fill="var(--text)" font-family="sans-serif" font-size="9">🎨 Colorante: <tspan font-weight="700" fill="#fff">60 L</tspan></text>
+  <text x="25" y="110" fill="var(--text)" font-family="sans-serif" font-size="9">💨 Gas: <tspan font-weight="700" fill="#fff">60 L</tspan></text>
+  <text x="25" y="126" fill="var(--text)" font-family="sans-serif" font-size="9">🧴 Espuma: <tspan font-weight="700" fill="#fff">100 L</tspan></text>
+  <text x="25" y="142" fill="var(--text)" font-family="sans-serif" font-size="9">Lanza sup/inf · Pala · Cabrestante</text>
+  <rect x="245" y="10" width="210" height="160" rx="10" fill="var(--panel2)" stroke="var(--gold)" stroke-width="1.5"/>
+  <rect x="245" y="10" width="210" height="32" rx="10" fill="#9a6c1a"/>
+  <text x="350" y="31" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="11" font-weight="700">URO VAMTAC</text>
+  <text x="260" y="62" fill="var(--text)" font-family="sans-serif" font-size="9">⚡ Potencia: <tspan font-weight="700" fill="#fff">188 CV · Automático</tspan></text>
+  <text x="260" y="78" fill="var(--text)" font-family="sans-serif" font-size="9">🔧 Tracción: <tspan font-weight="700" fill="#fff">4x4 permanente</tspan></text>
+  <text x="260" y="94" fill="var(--text)" font-family="sans-serif" font-size="9">⚖️ Peso: <tspan font-weight="700" fill="#fff">3.800 kg</tspan></text>
+  <text x="260" y="110" fill="var(--text)" font-family="sans-serif" font-size="9">🛑 ABS de serie</text>
+  <text x="260" y="126" fill="var(--text)" font-family="sans-serif" font-size="9">🌊 Vadeo: <tspan font-weight="700" fill="#fff">80 cm</tspan></text>
+  <rect x="480" y="10" width="210" height="160" rx="10" fill="var(--panel2)" stroke="var(--success)" stroke-width="1.5"/>
+  <rect x="480" y="10" width="210" height="32" rx="10" fill="#15795c"/>
+  <text x="585" y="31" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="11" font-weight="700">VIPA 6x6</text>
+  <text x="495" y="62" fill="var(--text)" font-family="sans-serif" font-size="9">🏎️ Vel. máx: <tspan font-weight="700" fill="#fff">96 km/h</tspan></text>
+  <text x="495" y="78" fill="var(--text)" font-family="sans-serif" font-size="9">⛰️ Pendiente: <tspan font-weight="700" fill="#fff">60%</tspan></text>
+  <text x="495" y="94" fill="var(--text)" font-family="sans-serif" font-size="9">🛣️ Autonomía: <tspan font-weight="700" fill="#fff">800 km</tspan></text>
+  <text x="495" y="110" fill="var(--text)" font-family="sans-serif" font-size="9">📦 PMA: <tspan font-weight="700" fill="#fff">14.000 kg</tspan></text>
+  <text x="495" y="126" fill="var(--text)" font-family="sans-serif" font-size="9">🔄 Giro mín: <tspan font-weight="700" fill="#fff">7,5 m</tspan></text>
+  <text x="495" y="142" fill="var(--text)" font-family="sans-serif" font-size="9">🏊 Navega</text>
+  <rect x="10" y="190" width="330" height="90" rx="10" fill="var(--panel2)" stroke="var(--danger)" stroke-width="1.5"/>
+  <rect x="10" y="190" width="330" height="28" rx="10" fill="#7a2424"/>
+  <text x="175" y="208" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="11" font-weight="700">🆕 VEMAC — Vehículo Mando y Control</text>
+  <text x="25" y="235" fill="var(--text)" font-family="sans-serif" font-size="9">Dirección y coordinación táctica de dispositivos complejos</text>
+  <text x="25" y="251" fill="var(--text)" font-family="sans-serif" font-size="9">Comunicaciones seguras + imágenes en tiempo real</text>
+  <text x="25" y="267" fill="var(--text)" font-family="sans-serif" font-size="9">Puesto de mando avanzado con interoperabilidad</text>
+  <rect x="360" y="190" width="330" height="90" rx="10" fill="var(--panel2)" stroke="var(--danger)" stroke-width="1.5"/>
+  <rect x="360" y="190" width="330" height="28" rx="10" fill="#7a2424"/>
+  <text x="525" y="208" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="11" font-weight="700">🆕 EMIR — Equipo Mecánico Intervención Rápida</text>
+  <text x="375" y="235" fill="var(--text)" font-family="sans-serif" font-size="9">Herramientas, compresores, generadores especializados</text>
+  <text x="375" y="251" fill="var(--text)" font-family="sans-serif" font-size="9">Reparaciones de emergencia in situ a la flota UIP</text>
+  <text x="375" y="267" fill="var(--text)" font-family="sans-serif" font-size="9">Garantiza operatividad continua durante despliegues</text>
+  <text x="350" y="320" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="10" font-weight="700">🆕 = Material incorporado en la actualización de octubre 2025</text>
+</svg><div class="svg-caption">Fichas técnicas de los principales vehículos UIP</div></div><h3>4.2. Conducción Operativa</h3>
+<h4>Desplazamientos en Convoy</h4>
+<ul>
+<li>Siempre con <strong>luz de cruce y puente de luces encendidas</strong></li>
+<li>Adecuar la velocidad; el último vehículo aumenta su velocidad</li>
+<li>En semáforos, rotondas e intersecciones: aminorar; no rebasar semáforos al cambiar de fase</li>
+<li>Distancia de seguridad: la misma que en situaciones normales</li>
+<li>Aparcar en espacio para todo el convoy y en posición de salida rápida</li>
+</ul>
+<h4>Art. 69 RGC</h4>
+<div class="alert-warn">Tan pronto perciban las señales de vehículo prioritario, los demás conductores adoptarán las medidas adecuadas para facilitarles el paso, <strong>apartándose normalmente a su derecha o deteniéndose si fuera preciso</strong>.</div>
+
+<h3>4.3. Material Antidisturbios</h3>
+<h4>Pelotas de Goma (Proyectiles tipo B)</h4>
+<ul>
+<li>Instrucción JUIP <strong>17-12-2012</strong> sobre empleo de reductor de energía</li>
+<li>Disparadas desde escopeta Franchi con bocacha</li>
+<li>El bocachero se adelanta, dispara y se repliega detrás del escudero</li>
+<li><strong>Nunca</strong> disparar a cabeza, cara o partes vitales</li>
+</ul>
+<h4>Spray MK-9S (First Defense)</h4>
+<ul>
+<li>Instrucción JUIP <strong>06-09-2018</strong> — Agente irritante OC (Oleorresina de Capsicum)</li>
+<li><strong>Un bote por subgrupo</strong> — uso a corta distancia</li>
+</ul>
+<h4>Módulo</h4>
+<p>Amparo individual frente a proyectiles e incendiarios. Se despliega formando barrera de protección. <strong>Un módulo por subgrupo.</strong></p>
+`,
+  "5": `
+<h3>5.1. Sistema de Voces</h3>
+<p>Toda orden se da en <strong>dos tiempos</strong>: voz <strong>preventiva</strong> (indica qué hacer) + voz ejecutiva <strong>"YA"</strong> (se ejecuta).</p>
+<div class="alert"><strong>"Todo el material"</strong> = dotarse de TODO el equipo de protección: casco, chaleco, protecciones de brazo y piernas, guantes, escudo o bocacha y mochila según proceda.</div>
+
+<h3>5.2. Posiciones Básicas (sin armamento)</h3>
+<ul>
+<li><strong>Descanso:</strong> posición relajada</li>
+<li><strong>Firmes:</strong> talones unidos, pies 45°, brazos pegados al cuerpo</li>
+<li><strong>Prevengan:</strong> preparación para acción/despliegue</li>
+</ul>
+
+<h3>5.3. Posiciones con Defensa</h3>
+<table>
+<tr><th>Posición</th><th>Descripción</th></tr>
+<tr><td>En transporte</td><td>Defensa en la funda o en la mano a la espalda</td></tr>
+<tr><td>Oculta</td><td>Defensa oculta al cuerpo</td></tr>
+<tr><td>Horizontal baja/media</td><td>Defensa horizontal a altura baja o media</td></tr>
+<tr><td>Terciada</td><td>Defensa terciada al cuerpo</td></tr>
+</table>
+
+<h3>5.4. Escudo — Posiciones</h3>
+<table>
+<tr><th>Posición</th><th>Uso</th></tr>
+<tr><td><strong>Natural/Transporte</strong></td><td>Desplazamiento sin amenaza inmediata</td></tr>
+<tr><td><strong>Protección media (línea)</strong></td><td>Protección estándar en línea</td></tr>
+<tr><td><strong>Protección alta</strong></td><td>Amenaza alta frontal</td></tr>
+<tr><td><strong>Protección superior</strong></td><td>Amenaza desde arriba</td></tr>
+<tr><td><strong>Protección baja</strong></td><td>Amenaza baja / protección piernas</td></tr>
+</table>
+
+<h3>5.5. Escopeta / Bocacha — Posiciones</h3>
+<table>
+<tr><th>Posición</th><th>Descripción</th></tr>
+<tr><td>Terciada</td><td>Transporte segura</td></tr>
+<tr><td>Acunada</td><td>Preparada para uso inmediato</td></tr>
+<tr><td>A la cadera</td><td>Posición de disparo desde cadera</td></tr>
+<tr><td>A la pierna</td><td>Boca apuntando hacia piernas</td></tr>
+</table>
+
+<h3>5.6. Código de Señales con Silbato</h3>
+<table>
+<tr><th>Señal</th><th>Despliegue / Uso</th></tr>
+<tr><td><strong>Columna</strong></td><td>De a uno — desplazamientos e introducirse en masa pacífica y densa</td></tr>
+<tr><td><strong>Columna de a dos</strong></td><td>Masa pacífica y poco densa</td></tr>
+<tr><td><strong>Línea</strong></td><td>Contención, canalización y filtros</td></tr>
+<tr><td><strong>Línea de a dos</strong></td><td>Actuar por binomios con material antidisturbios</td></tr>
+<tr><td><strong>Columna de a tres</strong></td><td>Tres en fondo; desplazamientos en espacios amplios</td></tr>
+<tr><td><strong>Masa</strong></td><td>Carácter disuasorio; punto de partida para intervención con defensa</td></tr>
+<tr><td><strong>Casco en protección</strong></td><td>Ponerse el casco y cerrar la visera</td></tr>
+<tr><td><strong>Arranque de vehículos</strong></td><td>Orden de subir y arrancar vehículos</td></tr>
+<tr><td><strong>Al costado de vehículos</strong></td><td>Posición de protección lateral junto al vehículo</td></tr>
+<tr><td><strong>Sobre vehículos</strong></td><td>Subir al vehículo</td></tr>
+<tr><td><strong>Cuña directa</strong></td><td>Masas densas y potencialmente hostiles; protección de personalidades</td></tr>
+<tr><td><strong>Cuña inversa</strong></td><td>Proteger personalidad con contacto visual; conducir masa</td></tr>
+</table>
+
+<div class="svg-diagram"><svg viewBox="0 0 700 300" xmlns="http://www.w3.org/2000/svg">
+  <g transform="translate(40,20)"><text x="50" y="0" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="11" font-weight="700">COLUMNA</text><circle cx="50" cy="22" r="7" fill="var(--accent)"/><circle cx="50" cy="40" r="7" fill="var(--accent)"/><circle cx="50" cy="58" r="7" fill="var(--accent)"/><circle cx="50" cy="76" r="7" fill="var(--accent)"/><text x="50" y="100" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Desplazamiento</text></g>
+  <g transform="translate(160,20)"><text x="50" y="0" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="11" font-weight="700">COL. x2</text><circle cx="35" cy="22" r="7" fill="var(--accent)"/><circle cx="65" cy="22" r="7" fill="var(--accent)"/><circle cx="35" cy="42" r="7" fill="var(--accent)"/><circle cx="65" cy="42" r="7" fill="var(--accent)"/><circle cx="35" cy="62" r="7" fill="var(--accent)"/><circle cx="65" cy="62" r="7" fill="var(--accent)"/><text x="50" y="86" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Masa poco densa</text></g>
+  <g transform="translate(290,20)"><text x="50" y="0" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="11" font-weight="700">LÍNEA</text><circle cx="20" cy="35" r="7" fill="var(--accent)"/><circle cx="42" cy="35" r="7" fill="var(--accent)"/><circle cx="64" cy="35" r="7" fill="var(--accent)"/><circle cx="86" cy="35" r="7" fill="var(--accent)"/><text x="53" y="58" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Contención/filtro</text></g>
+  <g transform="translate(430,20)"><text x="50" y="0" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="11" font-weight="700">MASA</text><circle cx="24" cy="24" r="7" fill="var(--accent)"/><circle cx="44" cy="20" r="7" fill="var(--accent)"/><circle cx="64" cy="26" r="7" fill="var(--accent)"/><circle cx="18" cy="42" r="7" fill="var(--accent)"/><circle cx="40" cy="44" r="7" fill="var(--accent)"/><circle cx="60" cy="40" r="7" fill="var(--accent)"/><circle cx="78" cy="44" r="7" fill="var(--accent)"/><circle cx="30" cy="62" r="7" fill="var(--accent)"/><circle cx="52" cy="60" r="7" fill="var(--accent)"/><circle cx="70" cy="62" r="7" fill="var(--accent)"/><text x="48" y="84" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Disuasión total</text></g>
+  <g transform="translate(560,20)"><text x="50" y="0" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="11" font-weight="700">LÍNEA x2</text><circle cx="16" cy="26" r="7" fill="var(--accent)"/><circle cx="38" cy="26" r="7" fill="var(--accent)"/><circle cx="60" cy="26" r="7" fill="var(--accent)"/><circle cx="82" cy="26" r="7" fill="var(--accent)"/><circle cx="16" cy="46" r="7" fill="var(--accent)"/><circle cx="38" cy="46" r="7" fill="var(--accent)"/><circle cx="60" cy="46" r="7" fill="var(--accent)"/><circle cx="82" cy="46" r="7" fill="var(--accent)"/><text x="49" y="70" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Binomios c/material</text></g>
+  <g transform="translate(130,160)"><text x="50" y="0" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="11" font-weight="700">CUÑA DIRECTA</text><circle cx="50" cy="22" r="8" fill="var(--gold)"/><circle cx="35" cy="42" r="7" fill="var(--accent)"/><circle cx="65" cy="42" r="7" fill="var(--accent)"/><circle cx="20" cy="62" r="7" fill="var(--accent)"/><circle cx="80" cy="62" r="7" fill="var(--accent)"/><text x="50" y="84" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Masas hostiles / VIP</text></g>
+  <g transform="translate(320,160)"><text x="50" y="0" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="11" font-weight="700">CUÑA INVERSA</text><circle cx="20" cy="22" r="7" fill="var(--accent)"/><circle cx="80" cy="22" r="7" fill="var(--accent)"/><circle cx="35" cy="42" r="7" fill="var(--accent)"/><circle cx="65" cy="42" r="7" fill="var(--accent)"/><circle cx="50" cy="62" r="8" fill="var(--gold)"/><text x="50" y="84" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Conducir masa / proteger VIP</text></g>
+  <g transform="translate(520,175)"><circle cx="10" cy="10" r="7" fill="var(--accent)"/><text x="25" y="14" fill="var(--muted)" font-family="sans-serif" font-size="9">Componente</text><circle cx="10" cy="34" r="7" fill="var(--gold)"/><text x="25" y="38" fill="var(--muted)" font-family="sans-serif" font-size="9">Mando / Oficial</text></g>
+  <text x="350" y="285" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="10" font-style="italic">Toda orden: voz preventiva + voz ejecutiva "YA"</text>
+</svg><div class="svg-caption">Formaciones tácticas UIP: vista esquemática</div></div><h3>5.7. Barreras y Cadenas</h3>
+<div class="alert"><strong>Barrera:</strong> Dispositivo policial para el <strong>control o prohibición de una zona</strong>, mediante la canalización y/o prohibición de movimientos a personas, vehículos y objetos.</div>
+<h4>Clasificación según la Misión</h4>
+<table>
+<tr><th>Tipo</th><th>Objetivo</th></tr>
+<tr><td><strong>Prohibición / Contención</strong></td><td>Evitar el paso; <em>contención</em> cuando se emplea con contundencia física en OP</td></tr>
+<tr><td><strong>Canalización</strong></td><td>Orientar el movimiento hacia direcciones elegidas</td></tr>
+<tr><td><strong>Control</strong></td><td>Impermeabilizar selectivamente: quienes sean canalizados pueden traspasar</td></tr>
+<tr><td><strong>Interposición</strong></td><td>Separar grupos rivales o fraccionar masas numerosas</td></tr>
+</table>
+<h4>Clasificación según los Medios</h4>
+<table>
+<tr><th>Tipo</th><th>Modalidades</th></tr>
+<tr><td><strong>Humanos</strong></td><td><strong>A-Línea:</strong> policías uno al costado del otro<br><strong>B-Cadena:</strong> policías unidos por brazos, muñecas o defensas<br><strong>C-Columna:</strong> policías uno detrás del otro (interposición en gradas)</td></tr>
+<tr><td><strong>Materiales</strong></td><td>Vehículos / Cinta "alto policía" / Vallas / Mobiliario urbano / Accidentes del terreno</td></tr>
+<tr><td><strong>Mixtos</strong></td><td>Medios humanos + materiales: las <strong>más consistentes y de mejor resultado</strong></td></tr>
+</table>
+`,
+  "6": `
+<h3>6.1. Definición</h3>
+<div class="alert"><strong>Unidad básica de actuación de la UIP</strong> (salvo en orden público, que es el Subgrupo Operativo).</div>
+
+<div class="svg-diagram"><svg viewBox="0 0 700 230" xmlns="http://www.w3.org/2000/svg">
+  <rect x="20" y="75" width="150" height="90" rx="10" fill="var(--panel2)" stroke="var(--accent)" stroke-width="2"/>
+  <text x="95" y="98" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="13" font-weight="800">EQUIPO</text>
+  <text x="95" y="114" text-anchor="middle" fill="var(--accent)" font-family="sans-serif" font-size="13" font-weight="800">OPERATIVO</text>
+  <text x="95" y="136" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="12" font-weight="700">7 efectivos</text>
+  <text x="95" y="152" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="9">1 Oficial + 6 Policías</text>
+  <path d="M 170 120 L 230 120" stroke="var(--border)" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="200" y="112" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="9">x2</text>
+  <rect x="230" y="55" width="165" height="130" rx="10" fill="var(--panel2)" stroke="var(--gold)" stroke-width="2"/>
+  <text x="312" y="80" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="13" font-weight="800">SUBGRUPO</text>
+  <text x="312" y="96" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="13" font-weight="800">OPERATIVO</text>
+  <text x="312" y="118" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="12" font-weight="700">15 efectivos</text>
+  <text x="312" y="134" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="9">1 Subinsp. + 2 Of. + 12 Pol.</text>
+  <text x="312" y="150" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="9">= 2 Equipos Operativos</text>
+  <text x="312" y="170" text-anchor="middle" fill="var(--text)" font-family="sans-serif" font-size="8" font-style="italic">Unidad elemental táctica / mín. OP</text>
+  <path d="M 395 120 L 455 120" stroke="var(--border)" stroke-width="2" marker-end="url(#arr)"/>
+  <text x="425" y="112" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="9">x3</text>
+  <rect x="455" y="25" width="210" height="190" rx="10" fill="var(--panel2)" stroke="var(--success)" stroke-width="2.5"/>
+  <text x="560" y="52" text-anchor="middle" fill="var(--success)" font-family="sans-serif" font-size="14" font-weight="800">GRUPO OPERATIVO</text>
+  <text x="560" y="78" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="14" font-weight="700">50 efectivos</text>
+  <text x="560" y="96" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8.5">1 Insp. + 3 Subinsp. + 7 Of. + 39 Pol.</text>
+  <text x="560" y="114" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8.5">Eq. Mando (1 Of.+3 Pol.)</text>
+  <text x="560" y="130" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8.5">+ 3 Subgrupos Operativos</text>
+  <text x="560" y="158" text-anchor="middle" fill="var(--text)" font-family="sans-serif" font-size="8.5" font-style="italic">Unidad fundamental de organización</text>
+  <text x="560" y="172" text-anchor="middle" fill="var(--text)" font-family="sans-serif" font-size="8.5" font-style="italic">y empleo</text>
+  <text x="560" y="196" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="9" font-weight="700">Mando: Inspector</text>
+  <defs><marker id="arr" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--border)"/></marker></defs>
+</svg><div class="svg-caption">Jerarquía de unidades UIP: Equipo → Subgrupo → Grupo Operativo</div></div><h3>6.2. Tipos y Composición</h3>
+<table>
+<tr><th>Tipo</th><th>Composición</th></tr>
+<tr><td><strong>EO UIP</strong></td><td>1 Oficial + 6 Policías = <strong>7 efectivos</strong></td></tr>
+<tr><td><strong>EO Mando Unidad</strong></td><td>1 Oficial + 5 Policías = 6 efectivos</td></tr>
+<tr><td><strong>EO Apoyo Unidad</strong></td><td>1 Oficial + 5 Policías = 6 efectivos</td></tr>
+<tr><td><strong>EO Mando Núcleo</strong></td><td>1 Oficial + 5 Policías = 6 efectivos</td></tr>
+<tr><td><strong>EO Mando Grupo</strong></td><td>1 Oficial + 3 Policías = 4 efectivos</td></tr>
+</table>
+
+<h3>6.3. Material del EO de UIP</h3>
+<h4>Individual (cada componente)</h4>
+<ul>
+<li>Pistola + cargador repuesto + funda táctica Safariland</li>
+<li>Grilletes + Defensa + Chaleco antitrauma + Chaleco antibalas + Casco + Guantes + Protecciones brazo y pierna + Chaleco reflectante</li>
+</ul>
+<h4>Colectivo del EO de UIP</h4>
+<ul>
+<li>1 Fusil H&K G36</li>
+<li>2 Escopetas Franchi con bocacha</li>
+<li>1 Escudo balístico</li>
+<li>3 Escudos antidisturbios</li>
+<li>2 Mochilas portamaterial</li>
+</ul>
+<div class="alert-warn">El EO puede desdoblarse en <strong>2 PAR (Patrulla Antiterrorista de Reacción)</strong> con mínimo <strong>3 componentes</strong> cada una, dotada de un arma larga, escudo balístico y equipo portátil de transmisiones. Misión: carácter <strong>preventivo y de reacción</strong>.</div>
+
+<h3>6.4. Funciones del EO</h3>
+<ul>
+<li>Patrullas preventivas y despliegues preventivos</li>
+<li>Protecciones estáticas y dinámicas</li>
+<li>Jalonamiento de itinerarios</li>
+<li>Filtros de acceso</li>
+<li>Barreras de prohibición o canalización</li>
+<li>Control de semáforos</li>
+</ul>
+
+<h3>6.5. Despliegues del EO</h3>
+<h4>Formaciones a Pie</h4>
+<table>
+<tr><th>Formación</th><th>Uso</th></tr>
+<tr><td><strong>Columna</strong></td><td>Desplazamientos; introducirse en masa pacífica y densa</td></tr>
+<tr><td><strong>Columna de a dos</strong></td><td>Masa pacífica y poco densa</td></tr>
+<tr><td><strong>Línea</strong></td><td>Contención, canalización y filtros; escudos en transporte</td></tr>
+<tr><td><strong>Línea de a dos</strong></td><td>Actuar por binomios con material; escudos en protección media</td></tr>
+<tr><td><strong>Masa</strong></td><td>Máxima disuasión; punto de partida para intervención</td></tr>
+<tr><td><strong>Cuña directa</strong></td><td>Masas hostiles; protección de personalidades</td></tr>
+<tr><td><strong>Cuña inversa</strong></td><td>Personalidad con contacto visual; conducir masa</td></tr>
+</table>
+`,
+  "7": `
+<h3>7.1. Definición</h3>
+<div class="alert"><strong>Unidad elemental táctica de las UIP y mínima de empleo en operaciones de orden público.</strong></div>
+
+<h3>7.2. Composición</h3>
+<table>
+<tr><th>Tipo</th><th>Composición</th></tr>
+<tr><td><strong>Subgrupo Operativo UIP</strong></td><td>1 Subinspector + 2 Oficiales + 12 Policías = <strong>15 efectivos</strong></td></tr>
+<tr><td><strong>SOMA (Mando y Apoyo)</strong></td><td>1 Subinspector + 2 Oficiales + 10 Policías</td></tr>
+</table>
+
+<h3>7.3. Material Colectivo del SO de UIP</h3>
+<ul>
+<li>2 Fusiles H&K G36</li>
+<li>4 Escopetas Franchi con bocachas + 1 Franchi sin bocacha</li>
+<li>6 Escudos antidisturbios + 2 Escudos balísticos</li>
+<li>4 Mochilas portamaterial</li>
+<li>1 Módulo + 1 Maza + 1 Cizalla</li>
+<li>1 Bote Spray MK-9S</li>
+<li><strong>1 CZ Scorpion EVO3 A1</strong> (🆕 2025)</li>
+</ul>
+<div class="alert-warn">El SO puede conformarse en <strong>SOAR (Subgrupo Operativo Antiterrorista de Reacción)</strong> compuesto por <strong>4 PAR</strong>, dirigido por el jefe de subgrupo. Misiones preventivas y de reacción antiterrorista.</div>
+
+<h3>7.4. Misiones del Jefe de SO</h3>
+<h4>Antes del Servicio</h4>
+<ul>
+<li>Recibe órdenes del jefe de grupo y solicita información y medios</li>
+<li>Estudia y planifica la misión; reconoce in situ el lugar</li>
+<li>Realiza análisis de riesgos y elabora la estrategia</li>
+<li>Establece claves y consignas; distribuye misiones a los equipos</li>
+<li>Reúne y motiva al subgrupo; da novedades al jefe de grupo</li>
+</ul>
+<h4>Durante el Servicio</h4>
+<ul>
+<li>Impulsa y dirige la acción; mantiene enlace ascendente, descendente y colateral</li>
+<li>Mantiene la iniciativa; ordena los despliegues operativos</li>
+<li>Controla el empleo de medios y armamento</li>
+</ul>
+<h4>Después del Servicio</h4>
+<ul>
+<li>Reorganiza el SO; recibe novedades de los jefes de equipo</li>
+<li>Ordena traslado de heridos y detenidos; da novedades al jefe de grupo</li>
+<li>Elabora informes; solicita reposición de material; realiza el juicio crítico</li>
+</ul>
+`,
+  "8": `
+<h3>8.1. Definición</h3>
+<div class="alert"><strong>Unidad fundamental de organización y empleo de las UIP.</strong> Su organización le capacita para efectuar maniobras y mantener una reserva.
+<br><strong>Mando:</strong> Inspector.
+<br><strong>Composición: 50 efectivos</strong> = 1 Inspector + 3 Subinspectores + 7 Oficiales + 39 Policías
+<br>= Equipo de mando (1 Of. + 3 Pol.) + 3 Subgrupos Operativos</div>
+
+<h3>8.2. Material Colectivo del GO</h3>
+<ul>
+<li>7 Fusiles H&K G36 + 2 Fusiles HK 417</li>
+<li>13 Escopetas Franchi con bocachas + 3 sin bocacha</li>
+<li>19 Escudos antidisturbios + 7 Escudos balísticos</li>
+<li>13 Mochilas portamaterial</li>
+<li>3 Módulos + 3 Mazas + 3 Cizallas + 3 Botes Spray MK-9S</li>
+<li><strong>3 Subfusiles CZ Scorpion EVO3 A1</strong> (🆕 2025)</li>
+</ul>
+
+<h3>8.3. Misiones del Jefe de Grupo</h3>
+<h4>Antes</h4>
+<ul>
+<li>Recibe órdenes del jefe de Unidad; solicita información y medios</li>
+<li>Estudia y planifica la misión; reconoce in situ el lugar</li>
+<li>Análisis de riesgos; elabora estrategia; establece claves y consignas</li>
+<li>Distribuye misiones a los subgrupos; reúne y motiva al grupo</li>
+</ul>
+<h4>Durante</h4>
+<ul>
+<li>Impulsa y dirige la acción del grupo</li>
+<li>Mantiene enlace ascendente, descendente y colateral</li>
+<li>Ordena los despliegues operativos; controla el empleo de medios y armamento</li>
+</ul>
+<h4>Después</h4>
+<ul>
+<li>Reorganiza el grupo; recibe novedades de los jefes de SO</li>
+<li>Ordena traslado de heridos y detenidos</li>
+<li>Da novedades al jefe de Unidad; elabora informes; juicio crítico</li>
+</ul>
+
+<h3>8.4. Cadencia de Fuego</h3>
+<div class="alert">Objetivo: <strong>disciplina en el uso de los medios de dispersión</strong> y racionalización de los mismos.</div>
+<ul>
+<li>Se ordena por <strong>binomios, equipos, subgrupos o grupo</strong></li>
+<li>Si no se especifica, siempre <strong>de izquierda a derecha</strong></li>
+<li>Puede combinarse con avances y repliegues</li>
+</ul>
+<h4>Secuencia de Voces de Fuego</h4>
+<table>
+<tr><th>Voz Preventiva</th><th>Voz Ejecutiva</th><th>Acción</th></tr>
+<tr><td>PELOTA / FUMÍGENO / LACRIMÓGENO</td><td>—</td><td>Selecciona material e introduce en bocacha</td></tr>
+<tr><td>MONTEN</td><td>YA</td><td>Lleva la mano a la corredera; monta el arma</td></tr>
+<tr><td>FUEGO</td><td>YA</td><td>Bocachero se adelanta, asoma la bocacha, dispara y se repliega detrás del escudero</td></tr>
+<tr><td>ALTO EL FUEGO</td><td>(simultánea)</td><td>Cesa el fuego inmediatamente; arma en seguridad</td></tr>
+</table>
+`,
+  "9": `
+<h3>9.1. LO 4/2015, de 30 de marzo — Objeto y estructura</h3>
+<div class="alert"><strong>Objeto (Art. 1):</strong> Regulación de actuaciones orientadas a la tutela de la seguridad ciudadana, mediante la <strong>protección de personas y bienes</strong> y el <strong>mantenimiento de la tranquilidad ciudadana</strong>.</div>
+<h4>Estructura (5 Capítulos)</h4>
+<ul>
+<li><strong>Cap. I:</strong> Disposiciones generales. Principios, cooperación interadministrativa, deber de colaboración (Art. 7)</li>
+<li><strong>Cap. II:</strong> Documentación e identificación personal. DNI (Art. 8-9), ciudadanos extranjeros (Art. 13), identificación (Art. 16), registros corporales externos (Art. 17)</li>
+<li><strong>Cap. III:</strong> Actuaciones para el mantenimiento y restablecimiento de la seguridad ciudadana</li>
+<li><strong>Cap. IV:</strong> Potestades especiales de policía administrativa (armas, explosivos, hospedaje, espectáculos...)</li>
+<li><strong>Cap. V:</strong> Régimen sancionador (Arts. 34-54). Exime a <strong>menores de 14 años</strong>. Crea el <strong>Registro Central de Infracciones</strong> (Art. 43)</li>
+</ul>
+<div class="alert-warn">Deroga la LO 1/1992, de 21 de febrero, sobre Protección de la Seguridad Ciudadana ("Ley Corcuera"). Incorpora al ámbito administrativo conductas antes penales: faltas de respeto, deslucimiento de bienes, etc.</div>
+
+<h3>9.2. Art. 7 — Deber de colaboración</h3>
+<ul>
+<li><strong>Ap. 1:</strong> Autoridades y funcionarios públicos deben colaborar y prestar auxilio a las FCS</li>
+<li><strong>Ap. 2:</strong> Las FCS pueden recabar la ayuda de particulares, especialmente en casos de grave calamidad. Los que sufran daños serán indemnizados</li>
+<li><strong>Ap. 3:</strong> Las empresas de seguridad privada, despachos de detectives y personal de seguridad privada tienen especial deber de auxiliar a las FCS</li>
+</ul>
+
+<h3>9.3. Documentación e Identificación</h3>
+<h4>Art. 8 y 9 — DNI</h4>
+<ul>
+<li>Obligatorio para los españoles a partir de los <strong>14 años</strong>. Personal e intransferible.</li>
+<li>El titular está obligado a su obtención, custodia y conservación</li>
+<li>No puede ser privado del mismo salvo en supuestos previstos por la ley</li>
+</ul>
+<h4>Art. 13 — Ciudadanos extranjeros</h4>
+<ul>
+<li>Tienen derecho y obligación de conservar y portar la documentación que acredite su identidad y su situación en España</li>
+<li>No pueden ser privados de su documentación de origen salvo en investigaciones judiciales de carácter penal</li>
+</ul>
+<h4>Art. 16 — Identificación de personas</h4>
+<p>Los agentes podrán requerir la identificación en <strong>dos supuestos</strong>:</p>
+<ul>
+<li><strong>a)</strong> Cuando existan indicios de que han podido participar en la comisión de una infracción</li>
+<li><strong>b)</strong> Cuando, en atención a las circunstancias, se considere razonablemente necesario para <strong>prevenir la comisión de un delito</strong></li>
+</ul>
+<p>Podrá practicarse en el lugar o en las dependencias policiales más próximas. Los agentes deberán respetar los principios de <strong>proporcionalidad, igualdad de trato y no discriminación</strong>.</p>
+<h4>Art. 17 — Registros corporales externos</h4>
+<p>Practicables cuando razones de seguridad lo aconsejen, en la vía pública o lugares de acceso público. Los realizará un agente del <strong>mismo sexo</strong> preservando la intimidad. Respetarán el principio de <strong>injerencia mínima</strong>.</p>
+
+<h3>9.4. Cap. V — Régimen Sancionador</h3>
+<h4>Art. 34 — Clasificación e infracciones</h4>
+<table>
+<tr><th>Gravedad</th><th>Artículo</th><th>Multa (Art. 39)</th><th>Prescripción infracción (Art. 38)</th><th>Prescripción sanción (Art. 40)</th></tr>
+<tr><td><strong>Muy graves</strong></td><td><strong>Art. 35</strong></td><td>30.001 € – 600.000 €</td><td>No especificado (remite al CP)</td><td><strong>3 años</strong></td></tr>
+<tr><td><strong>Graves</strong></td><td><strong>Art. 36</strong></td><td>601 € – 30.000 €</td><td><strong>1 año</strong></td><td><strong>2 años</strong></td></tr>
+<tr><td><strong>Leves</strong></td><td><strong>Art. 37</strong></td><td>100 € – 600 €</td><td><strong>6 meses</strong></td><td><strong>1 año</strong></td></tr>
+</table>
+<div class="alert">Reducción del <strong>50%</strong> por pago voluntario en el plazo de <strong>15 días hábiles</strong> desde la notificación. Aplicable a <strong>todas las infracciones</strong> (muy graves, graves y leves).</div>
+<div class="alert-warn"><strong>Menores de 14 años:</strong> Exentos de responsabilidad. La autoridad competente lo pondrá en conocimiento del <strong>Ministerio Fiscal</strong>. Los menores de 18 años no emancipados: responden solidariamente sus padres, tutores o guardadores.</div>
+
+<h4>Art. 35 — Infracciones MUY GRAVES (solo 4 apartados)</h4>
+<ul>
+<li><strong>35.1:</strong> Reuniones/manifestaciones no comunicadas o prohibidas en infraestructuras de servicios básicos o en sus inmediaciones, <strong>cuando se haya generado un riesgo para la vida o integridad física</strong>. También la intrusión en dichos recintos incluido su sobrevuelo.</li>
+<li><strong>35.2:</strong> Fabricación, almacenamiento, comercio, transporte... de armas, explosivos, cartuchería o artículos pirotécnicos incumpliendo la normativa, <strong>cuando se causen perjuicios muy graves</strong>.</li>
+<li><strong>35.3:</strong> Celebración de espectáculos públicos o actividades recreativas <strong>quebrantando la prohibición o suspensión</strong> ordenada por la autoridad por razones de seguridad pública.</li>
+<li><strong>35.4:</strong> Proyección de <strong>haces de luz</strong> sobre pilotos o conductores de medios de transporte que puedan deslumbrarles o distraer su atención y provocar accidentes.</li>
+</ul>
+
+<h4>Art. 36 — Infracciones GRAVES (23 apartados — selección)</h4>
+<ul>
+<li><strong>36.1:</strong> Perturbación de la seguridad ciudadana en actos públicos, espectáculos deportivos o culturales, oficios religiosos u otras reuniones numerosas</li>
+<li><strong>36.2:</strong> Perturbación grave frente a sedes del Congreso, Senado y asambleas legislativas autonómicas</li>
+<li><strong>36.3:</strong> Causar desórdenes en vías o espacios públicos u obstaculizar la vía pública con mobiliario urbano, vehículos, contenedores... con alteración grave de la seguridad</li>
+<li><strong>36.4:</strong> Actos de obstrucción al ejercicio legítimo de funciones de autoridades o empleados públicos</li>
+<li><strong>36.6:</strong> <strong>Desobediencia o resistencia a la autoridad</strong> o sus agentes, <strong>negativa a identificarse</strong> o alegación de datos falsos — cuando no sea delito</li>
+<li><strong>36.7:</strong> <strong>Negativa a la disolución</strong> de reuniones y manifestaciones ordenada por la autoridad cuando concurran los supuestos del Art. 5 LO 9/83</li>
+<li><strong>36.16:</strong> Consumo o tenencia ilícitos de drogas en lugares públicos o transportes colectivos</li>
+<li><strong>36.23:</strong> Uso no autorizado de imágenes o datos de autoridades o miembros de las FCS que ponga en peligro su seguridad personal o familiar o el éxito de una operación</li>
+</ul>
+
+<h4>Art. 37 — Infracciones LEVES (17 apartados — selección)</h4>
+<ul>
+<li><strong>37.1:</strong> Celebración de reuniones en lugares de tránsito público o manifestaciones incumpliendo la LO 9/83 (arts. 4.2, 8, 9, 10 y 11)</li>
+<li><strong>37.4:</strong> <strong>Faltas de respeto y consideración</strong> a miembros de las FCS en el ejercicio de sus funciones, cuando no sea infracción penal</li>
+<li><strong>37.7:</strong> Ocupación de inmueble, vivienda o edificio ajenos, o permanencia en ellos, contra la voluntad del propietario — cuando no sea delito</li>
+<li><strong>37.13:</strong> Daños o <strong>deslucimiento de bienes muebles o inmuebles</strong> de uso público o privados en la vía pública — cuando no sea delito</li>
+<li><strong>37.16:</strong> Dejar sueltos o en condiciones de causar daños animales feroces o dañinos; abandono de animales domésticos en situación de peligro para su vida</li>
+<li><strong>37.17:</strong> Consumo de bebidas alcohólicas en lugares o transportes públicos cuando perturbe gravemente la tranquilidad ciudadana</li>
+</ul>
+`,
+  "10": `
+<h3>10.1. Constitución Española</h3>
+<div class="alert"><strong>Art. 21 CE — Derecho de Reunión:</strong>
+<br>1. Se reconoce el derecho de reunión pacífica y sin armas. <strong>No necesitará autorización previa.</strong>
+<br>2. En reuniones en lugares de tránsito público y manifestaciones se dará comunicación previa. La autoridad solo podrá prohibirlas cuando existan <strong>razones fundadas de alteración del orden público, con peligro para personas o bienes</strong>.</div>
+
+<h3>10.2. LO 9/83, Reguladora del Derecho de Reunión</h3>
+<div class="alert"><strong>Art. 1.2:</strong> Reunión = concurrencia concertada y temporal de <strong>más de 20 personas</strong> con finalidad determinada.</div>
+<h4>Reuniones Excluidas (Art. 2)</h4>
+<ul>
+<li>a) En domicilios propios</li>
+<li>b) Por razones familiares o de amistad en locales públicos o privados</li>
+<li>c) Partidos, sindicatos y asociaciones en lugares cerrados para sus propios miembros o invitados nominalmente</li>
+<li>d) Profesionales con sus clientes en lugares cerrados</li>
+<li>e) En unidades, buques y establecimientos militares</li>
+</ul>
+<div class="alert"><strong>Art. 3:</strong> Ninguna reunión estará sometida al régimen de <strong>previa autorización</strong>.</div>
+<h4>Art. 5 — Causas de Suspensión/Disolución</h4>
+<ul>
+<li>a) Reuniones ilícitas según las Leyes Penales</li>
+<li>b) Alteraciones del orden público con peligro para personas o bienes</li>
+<li>c) Uso de uniformes paramilitares por los asistentes</li>
+</ul>
+<h4>Art. 8 — Comunicación Previa</h4>
+<div class="alert"><strong>Plazos:</strong> Antelación <strong>mínima 10 días naturales</strong> y <strong>máxima 30 días</strong>.<br>Causas extraordinarias y graves: mínimo <strong>24 horas</strong>.</div>
+<h4>Art. 9 — Contenido del Escrito</h4>
+<ul>
+<li>a) Nombre, apellidos, domicilio y DNI del/los organizador/es</li>
+<li>b) Lugar, fecha, hora y duración prevista</li>
+<li>c) Objeto de la reunión/manifestación</li>
+<li>d) Itinerario proyectado (si hay circulación por vías públicas)</li>
+<li>e) Medidas de seguridad previstas o solicitadas</li>
+</ul>
+<p>La autoridad notificará al Ayuntamiento afectado, que informará en <strong>24 horas</strong>. Si no recibe informe: se entiende favorable. El informe no tiene carácter vinculante.</p>
+<h4>Art. 10 — Prohibición o Modificación</h4>
+<p>La autoridad puede prohibir o proponer modificación de fecha, lugar, duración o itinerario. Resolución <strong>motivada</strong> notificada en <strong>máximo 72 horas</strong> desde la comunicación del Art. 8.</p>
+<h4>Art. 11 — Delegados de la Autoridad</h4>
+<p>La autoridad puede enviar representante. Puede suspender o disolver en supuestos del Art. 5 previa advertencia a los organizadores.</p>
+
+<div class="svg-diagram"><svg viewBox="0 0 700 200" xmlns="http://www.w3.org/2000/svg">
+  <rect x="10" y="60" width="145" height="75" rx="8" fill="var(--panel2)" stroke="var(--accent)" stroke-width="2"/>
+  <text x="82" y="83" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">Comunicación</text>
+  <text x="82" y="97" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">previa (Art. 8)</text>
+  <text x="82" y="116" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="9" font-weight="700">10-30 días antes</text>
+  <text x="82" y="131" text-anchor="middle" fill="var(--danger)" font-family="sans-serif" font-size="8">⚠ Urgencia: mín. 24h</text>
+  <path d="M 155 97 L 190 97" stroke="var(--border)" stroke-width="2" marker-end="url(#arrT10)"/>
+  <rect x="190" y="60" width="145" height="75" rx="8" fill="var(--panel2)" stroke="var(--accent)" stroke-width="2"/>
+  <text x="262" y="86" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">Traslado al</text>
+  <text x="262" y="100" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">Ayuntamiento</text>
+  <text x="262" y="120" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="9" font-weight="700">24h para informar</text>
+  <path d="M 335 97 L 370 97" stroke="var(--border)" stroke-width="2" marker-end="url(#arrT10)"/>
+  <rect x="370" y="50" width="165" height="95" rx="8" fill="var(--panel2)" stroke="var(--gold)" stroke-width="2"/>
+  <text x="452" y="73" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">Resolución autoridad</text>
+  <text x="452" y="87" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8.5">permite, modifica o prohíbe</text>
+  <text x="452" y="105" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="9" font-weight="700">máx. 72h desde comunicación</text>
+  <text x="452" y="130" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8" font-style="italic">Resolución motivada</text>
+  <path d="M 535 97 L 570 97" stroke="var(--border)" stroke-width="2" marker-end="url(#arrT10)"/>
+  <rect x="570" y="60" width="115" height="75" rx="8" fill="var(--panel2)" stroke="var(--success)" stroke-width="2"/>
+  <text x="627" y="90" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">Celebración</text>
+  <text x="627" y="106" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8.5">o recurso</text>
+  <text x="350" y="180" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="9" font-style="italic">Sin autorización previa — solo comunicación. Prohibición: solo si hay riesgo fundado para personas o bienes</text>
+  <defs><marker id="arrT10" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--border)"/></marker></defs>
+</svg><div class="svg-caption">Procedimiento y plazos: derecho de reunión (LO 9/83)</div></div><h3>10.3. Principios de Actuación Policial</h3>
+<ul>
+<li><strong>Legalidad:</strong> Actuar conforme a la ley; proteger el ejercicio del derecho de reunión</li>
+<li><strong>Proporcionalidad:</strong> Emplear solo los medios necesarios</li>
+<li><strong>Congruencia:</strong> Los medios han de ser idóneos para el fin</li>
+<li><strong>Oportunidad:</strong> Intervenir en el momento adecuado</li>
+</ul>
+<h4>Gradación</h4>
+<ol>
+<li><strong>Prevención:</strong> Presencia, información, enlace con organizadores</li>
+<li><strong>Disuasión:</strong> Negociación, requerimientos verbales, exhibición de medios</li>
+<li><strong>Intervención:</strong> Solo cuando se hayan agotado las anteriores o la situación lo exija</li>
+</ol>
+`,
+  "11": `<div class="svg-diagram"><svg viewBox="0 0 560 560" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="280" cy="280" r="205" fill="none" stroke="var(--border)" stroke-width="2" stroke-dasharray="4,4"/>
+  <circle cx="280" cy="280" r="65" fill="var(--accent2)" stroke="var(--accent)" stroke-width="2"/>
+  <text x="280" y="273" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="19" font-weight="800">MIMED</text>
+  <text x="280" y="293" text-anchor="middle" fill="rgba(255,255,255,0.7)" font-family="sans-serif" font-size="9">Ciclo de planificación</text>
+  <circle cx="280" cy="80" r="52" fill="var(--panel2)" stroke="var(--gold)" stroke-width="2"/>
+  <text x="280" y="70" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="21" font-weight="900">M</text>
+  <text x="280" y="89" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">MISIÓN</text>
+  <text x="280" y="103" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Genérica / Específica</text>
+  <line x1="280" y1="132" x2="280" y2="215" stroke="var(--gold)" stroke-width="2"/>
+  <circle cx="462" cy="200" r="52" fill="var(--panel2)" stroke="var(--gold)" stroke-width="2"/>
+  <text x="462" y="190" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="21" font-weight="900">I</text>
+  <text x="462" y="209" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">INFORMACIÓN</text>
+  <text x="462" y="223" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Previa / Actualizada</text>
+  <line x1="420" y1="228" x2="345" y2="260" stroke="var(--gold)" stroke-width="2"/>
+  <circle cx="390" cy="420" r="52" fill="var(--panel2)" stroke="var(--gold)" stroke-width="2"/>
+  <text x="390" y="410" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="21" font-weight="900">M</text>
+  <text x="390" y="429" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">MEDIOS</text>
+  <text x="390" y="443" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Humanos / Materiales</text>
+  <line x1="356" y1="374" x2="316" y2="330" stroke="var(--gold)" stroke-width="2"/>
+  <circle cx="170" cy="420" r="52" fill="var(--panel2)" stroke="var(--gold)" stroke-width="2"/>
+  <text x="170" y="410" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="21" font-weight="900">E</text>
+  <text x="170" y="429" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">EJECUCIÓN</text>
+  <text x="170" y="443" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Antes/Durante/Después</text>
+  <line x1="204" y1="374" x2="244" y2="330" stroke="var(--gold)" stroke-width="2"/>
+  <circle cx="98" cy="200" r="52" fill="var(--panel2)" stroke="var(--gold)" stroke-width="2"/>
+  <text x="98" y="190" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="21" font-weight="900">D</text>
+  <text x="98" y="209" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="10" font-weight="700">DOCUMENTAL</text>
+  <text x="98" y="223" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Informes / Juicio crítico</text>
+  <line x1="140" y1="228" x2="215" y2="260" stroke="var(--gold)" stroke-width="2"/>
+  <path d="M 328 55 A 225 225 0 0 1 500 168" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arM)"/>
+  <path d="M 500 234 A 225 225 0 0 1 424 395" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arM)"/>
+  <path d="M 355 465 A 225 225 0 0 1 205 465" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arM)"/>
+  <path d="M 136 395 A 225 225 0 0 1 60 234" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arM)"/>
+  <path d="M 60 168 A 225 225 0 0 1 232 55" fill="none" stroke="var(--accent)" stroke-width="2" marker-end="url(#arM)"/>
+  <defs><marker id="arM" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 Z" fill="var(--accent)"/></marker></defs>
+</svg><div class="svg-caption">El ciclo MIMED — modelo de planificación táctica UIP</div></div>
+<h3>11.1. Cuadro MIMED</h3>
+<div class="alert"><strong>MIMED</strong> — Regla nemotécnica para la planificación táctica de cualquier dispositivo UIP:<br><strong>M</strong>isión — <strong>I</strong>nformación — <strong>M</strong>edios — <strong>E</strong>jecución — <strong>D</strong>ocumental<br>Empleado por todos los mandos de UIP con responsabilidad en la planificación de un dispositivo, por pequeño que sea.</div>
+
+<h3>11.2. Las 5 Fases del MIMED</h3>
+<h4>1. MISIÓN</h4>
+<ul>
+<li><strong>Genérica:</strong> Objetivos a cumplir por la unidad o la unidad superior</li>
+<li><strong>Específica:</strong> Objetivos tácticos concretos de la unidad destinataria</li>
+</ul>
+<h4>2. INFORMACIÓN</h4>
+<p><em>La actividad más importante del ciclo de planificación.</em></p>
+<ul>
+<li><strong>Previa:</strong> Motivo del servicio; características del grupo (edad, peligrosidad); antecedentes; lugar; condicionantes ambientales y sociales</li>
+<li><strong>Análisis de riesgos:</strong> Medidas preventivas (evitar la materialización) + Medidas contingentes (durante y después)</li>
+<li><strong>Actualizada (tiempo real):</strong> Imágenes CCTV/helicóptero/drones; redes sociales; reporte de otras unidades</li>
+</ul>
+<h4>3. MEDIOS</h4>
+<table>
+<tr><th>Tipo</th><th>Propios</th><th>Ajenos</th></tr>
+<tr><td><strong>Humanos</strong></td><td>Unidades orgánicas UIP</td><td>Otras especialidades PN, Policía Local, Bomberos, Sanitarios, Protección Civil</td></tr>
+<tr><td><strong>Materiales</strong></td><td>Material orgánico. Verificar: capacidad humana (sabe usarlo) y técnica (funciona)</td><td>De otras especialidades, municipales, FFAA</td></tr>
+</table>
+<h4>4. EJECUCIÓN</h4>
+<table>
+<tr><th>Fase</th><th>Contenido</th></tr>
+<tr><td><strong>Previa</strong></td><td>Solo en grandes dispositivos. Presencia en zonas de interés; controles preventivos</td></tr>
+<tr><td><strong>Antes</strong></td><td>Asegurar el área de responsabilidad de cada unidad orgánica</td></tr>
+<tr><td><strong>Durante</strong></td><td>FASE CRÍTICA. El mando dirige e impulsa. Comunicación permanente. No perder la iniciativa. Mantener siempre reserva</td></tr>
+<tr><td><strong>Después</strong></td><td>Vuelta a la normalidad y repliegue. Partes de heridos; reagrupamiento; patrullas; retenes</td></tr>
+</table>
+<div class="alert-warn">Paralela a las fases existe la graduación: <strong>Prevención → Disuasión → Intervención</strong></div>
+<h4>5. DOCUMENTAL</h4>
+<ul>
+<li>Atestados y comparecencias</li>
+<li>Partes de servicio</li>
+<li>Informes y notas informativas</li>
+<li><strong>Juicio crítico</strong></li>
+</ul>
+`,
+  "12": `
+<h3>12.1. MIMED en Control de Masas</h3>
+<p>Dos supuestos principales:</p>
+<ul>
+<li><strong>Servicios previstos y planificados:</strong> Manifestaciones comunicadas; MIMED minucioso</li>
+<li><strong>Reacción a incidentes imprevistos:</strong> Disturbios sorpresivos; MIMED rápido; actuar con decisión</li>
+</ul>
+<div class="alert-warn">Consejos para incidentes imprevistos: 1) Mantener siempre mando y control de las unidades. 2) Tener la unidad mentalizada y preparada; el liderazgo del jefe es vital.</div>
+
+<h3>12.2. Tácticas, Técnicas y Procedimientos (TTP)</h3>
+<h4>Presencia</h4>
+<ul>
+<li>La simple presencia de las unidades es un elemento de disuasión</li>
+<li>La cohesión transmite decisión, firmeza y contundencia</li>
+<li>Los movimientos se realizan con firmeza y decisión usando formaciones UIP</li>
+<li><strong>Conducta individual:</strong> evitar conductas de desafío o provocación</li>
+</ul>
+<h4>Comunicación y Negociación</h4>
+<ul>
+<li>Adquirir información en el terreno como primer requisito</li>
+<li>Identificar al interlocutor válido entre los organizadores</li>
+<li>Informar clara y oportunamente a los manifestantes de las medidas</li>
+<li>Dar tiempo razonable para el cumplimiento de los requerimientos</li>
+</ul>
+<h4>Empleo Progresivo de la Fuerza</h4>
+<table>
+<tr><th>Nivel</th><th>Acción</th></tr>
+<tr><td>1</td><td>Prevención y disuasión: presencia, uniformidad, formaciones</td></tr>
+<tr><td>2</td><td>Negociación y comunicación</td></tr>
+<tr><td>3</td><td>Requerimientos verbales previos</td></tr>
+<tr><td>4</td><td>Intervención con medios de baja potencialidad (spray, pelotas)</td></tr>
+<tr><td>5</td><td>Intervención con medios de media potencialidad (defensa, escudo)</td></tr>
+<tr><td>6</td><td>Armamento de fuego (último recurso)</td></tr>
+</table>
+<div class="svg-diagram"><svg viewBox="0 0 640 350" xmlns="http://www.w3.org/2000/svg">
+  <polygon points="268,18 372,18 352,52 288,52" fill="var(--danger)" opacity="0.9"/>
+  <text x="320" y="40" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="9.5" font-weight="700">6. Arma de fuego</text>
+  <polygon points="248,57 392,57 372,91 268,91" fill="#e0633d" opacity="0.9"/>
+  <text x="320" y="79" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="9.5" font-weight="700">5. Defensa / escudo</text>
+  <polygon points="228,96 412,96 392,130 248,130" fill="var(--gold)" opacity="0.95"/>
+  <text x="320" y="118" text-anchor="middle" fill="#1a1a1a" font-family="sans-serif" font-size="9.5" font-weight="700">4. Spray / pelotas de goma</text>
+  <polygon points="208,135 432,135 412,169 228,169" fill="#d4a843" opacity="0.9"/>
+  <text x="320" y="157" text-anchor="middle" fill="#1a1a1a" font-family="sans-serif" font-size="9.5" font-weight="700">3. Requerimientos verbales</text>
+  <polygon points="188,174 452,174 432,208 208,208" fill="var(--accent)" opacity="0.9"/>
+  <text x="320" y="196" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="9.5" font-weight="700">2. Negociación y comunicación</text>
+  <polygon points="168,213 472,213 452,252 188,252" fill="var(--success)" opacity="0.9"/>
+  <text x="320" y="237" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="9.5" font-weight="700">1. Prevención y disuasión (presencia)</text>
+  <line x1="90" y1="272" x2="550" y2="272" stroke="var(--border)" stroke-width="2"/>
+  <text x="90" y="292" text-anchor="middle" fill="var(--success)" font-family="sans-serif" font-size="9" font-weight="700">MÁS FRECUENTE</text>
+  <text x="550" y="292" text-anchor="middle" fill="var(--danger)" font-family="sans-serif" font-size="9" font-weight="700">ÚLTIMO RECURSO</text>
+  <text x="320" y="325" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="10">Principios: congruencia · oportunidad · proporcionalidad</text>
+</svg><div class="svg-caption">Escalada del empleo progresivo de la fuerza</div></div><h4>Despliegues en Control de Masas</h4>
+<ul>
+<li><strong>Contención:</strong> Barrera de prohibición; línea o cadena de policías</li>
+<li><strong>Canalización:</strong> Dirección del flujo de la masa</li>
+<li><strong>Fraccionamiento:</strong> Dividir masas grandes mediante columnas de interposición</li>
+<li><strong>Detenciones selectivas:</strong> Neutralizar cabecillas; requiere coordinación y reserva suficiente</li>
+</ul>
+`,
+  "13": `
+<h3>13.1. Marco Normativo</h3>
+<h4>Nacional</h4>
+<ul>
+<li><strong>Ley 19/2007, de 11 de julio</strong> — contra la violencia, el racismo, la xenofobia y la intolerancia en el deporte</li>
+<li><strong>Ley 39/2022, de 30 de diciembre</strong> — del Deporte</li>
+<li><strong>R.D. 203/2010, de 26 de febrero</strong> — Reglamento de prevención de la violencia (VRXID)</li>
+<li>O.M. 31-07-1997: Registro Central de Sanciones</li>
+<li><strong>Instrucción 8/2023</strong> SE Seguridad: Actuación del coordinador de seguridad en prevención del racismo/xenofobia</li>
+<li>Escrito CGSC 11-09-937: Servicio en campos de fútbol</li>
+</ul>
+<h4>Internacional</h4>
+<ul>
+<li>Convenio Consejo de Europa 19-08-1985: Violencia en manifestaciones deportivas</li>
+<li>Resolución Consejo UE 3-06-2010: Cooperación policial internacional contra violencia en fútbol</li>
+</ul>
+
+<h3>13.2. Actos Violentos (R.D. 203/2010)</h3>
+<ul>
+<li>a) Participación activa en altercados en recintos, aledaños o transportes organizados</li>
+<li>b) Exhibición de pancartas/símbolos que inciten a la violencia o al terrorismo</li>
+<li>c) Entonación de cánticos que inciten a la violencia o al terrorismo</li>
+<li>d) Irrupción no autorizada en los terrenos de juego</li>
+<li>f) Facilitación de medios a grupos promotores de la violencia</li>
+</ul>
+
+<h3>13.3. Actos Racistas, Xenófobos o Intolerantes</h3>
+<ul>
+<li>a) Declaraciones que amenacen, insulten o vejen por origen racial, étnico, religión, discapacidad, orientación sexual...</li>
+<li>c) Declaraciones, gestos o insultos de trato vejatorio</li>
+<li>d) Cánticos, pancartas o símbolos con mensajes vejatorios o intimidatorios</li>
+</ul>
+
+<h3>13.4. Medidas de Seguridad</h3>
+<ul>
+<li>Localidades numeradas y de asiento para todos</li>
+<li><strong>Unidad de Control Organizativo (UCO)</strong></li>
+<li>Obligación de grabar el aforo completo durante todo el espectáculo</li>
+<li>Prohibición de venta/introducción de bebidas embotelladas y bebidas alcohólicas</li>
+<li><strong>Libro de registro de seguidores</strong></li>
+<li><strong>Planes individuales de riesgos</strong></li>
+</ul>
+<div class="alert"><strong>Distintivo "Juego Limpio":</strong> Mención honorífica para el equipo y afición que destaquen por su cumplimiento de las disposiciones contra violencia, racismo y xenofobia.</div>
+
+<h3>13.5. Operativa UIP en Eventos Deportivos</h3>
+<h4>Antes</h4>
+<ul>
+<li>Control de accesos y filtros de entrada</li>
+<li>Separación de aficiones rivales (segregación)</li>
+</ul>
+<h4>Durante</h4>
+<ul>
+<li>Dotaciones UIP permanecen en el exterior en reacción</li>
+<li>Atención especial en salidas al descanso y al final del partido</li>
+<li>Coordinación con los stewards y el coordinador de seguridad</li>
+</ul>
+<h4>Después</h4>
+<ul>
+<li>Control de salidas; escolta de autobuses de visitantes hasta salida de la ciudad</li>
+<li>Informes de incidencias</li>
+</ul>
+`,
+  "14": `
+<h3>14.1. Marco Normativo</h3>
+<ul>
+<li>Real Decreto 2816/1982: Reglamento General de Policía de Espectáculos Públicos</li>
+<li><strong>Real Decreto 524/2023, de 20 de junio:</strong> Norma Básica de Protección Civil</li>
+<li>Normativa de las Comunidades Autónomas y Ordenanzas Municipales</li>
+</ul>
+
+<h3>14.2. Estructura de Mando del Servicio</h3>
+<ul>
+<li><strong>Delegado de la autoridad:</strong> Normalmente escala ejecutiva de seguridad ciudadana; ejerce las funciones de la normativa reguladora de espectáculos</li>
+<li><strong>Coordinador</strong></li>
+<li><strong>Jefe operativo:</strong> Mando directo de las unidades UIP</li>
+</ul>
+<h4>Unidades Participantes</h4>
+<ul>
+<li>Unidades de Intervención Policial</li>
+<li>Caballería</li>
+<li>Seguridad ciudadana: radiopatrullas, UPR, y otras que se determinen</li>
+</ul>
+
+<h3>14.3. Ejecución</h3>
+<h4>ANTES</h4>
+<ul>
+<li>Llegada con la antelación indicada en la OS (normalmente <strong>una hora</strong>)</li>
+<li>Estacionamiento en zona habilitada; designación de funcionarios para seguridad de vehículos</li>
+<li>El responsable UIP contacta con el delegado de la autoridad</li>
+<li>Distribución de efectivos en el exterior: patrullas a pie; atención especial a zonas de taquillas y aglomeraciones</li>
+</ul>
+<h4>DURANTE</h4>
+<ul>
+<li>En eventos en lugar cerrado: dotaciones UIP permanecen en el exterior en reacción</li>
+<li>Atención especial en momentos de mayor afluencia (entrada, descanso, salida)</li>
+</ul>
+<h4>DESPUÉS</h4>
+<ul>
+<li>Control de salidas y desalojo ordenado</li>
+<li>Reagrupamiento de efectivos y material</li>
+<li>Parte de servicio; atestados si procede; juicio crítico</li>
+</ul>
+`,
+  "16": `
+<h3>16.1. Marco Jurídico</h3>
+<div class="alert"><strong>Art. 18 CE:</strong> Garantiza la inviolabilidad del domicilio como derecho fundamental.</div>
+<div class="alert-warn"><strong>Art. 202 CP — Allanamiento de morada:</strong> El particular que, sin habitar en ella, entrare en morada ajena o se mantuviera en la misma contra la voluntad de su titular.</div>
+<div class="alert-warn"><strong>Art. 245.2 CP — Usurpación:</strong> El que ocupare sin autorización un inmueble ajeno que no constituya morada, o se mantuviere contra la voluntad del titular. (1ª aplicación: 04-10-96, "Centro Social David Castilla", Madrid).</div>
+<h4>El Fenómeno Okupa</h4>
+<ul>
+<li>Origen: grandes ciudades de RU, Holanda y Alemania, años 70</li>
+<li>Primera ocupación reivindicativa en España: finales de 1984 en Barcelona; noviembre de 1985 en Madrid</li>
+<li>Se amalgama con el antimilitarismo; autodenominados "okupa" (anglicismo de "squatter")</li>
+</ul>
+
+<h3>16.2. Tipos de Desalojos</h3>
+<table>
+<tr><th>Tipo</th><th>Características</th></tr>
+<tr><td><strong>Judicial</strong></td><td>Con resolución judicial previa; el juez ordena el lanzamiento</td></tr>
+<tr><td><strong>Gubernativo</strong></td><td>Autoridad gubernativa ordena el desalojo; posible sin resolución judicial cuando concurren supuestos legales (flagrante delito, riesgo grave)</td></tr>
+</table>
+
+<h3>16.3. Operativa UIP</h3>
+<h4>Información Previa</h4>
+<ul>
+<li>Número de ocupantes y perfil (activistas, familias, peligrosidad)</li>
+<li>Características del inmueble: plantas, accesos, salidas de emergencia</li>
+<li>Antecedentes policiales; posible resistencia activa</li>
+<li>Redes de apoyo exterior y cobertura mediática esperada</li>
+</ul>
+<h4>Antes</h4>
+<ul>
+<li>Requerimiento legal a los ocupantes para que abandonen voluntariamente</li>
+<li>Establecimiento de perímetro de seguridad exterior</li>
+<li>Coordinación con Bomberos, servicios médicos y servicios sociales</li>
+</ul>
+<h4>Durante</h4>
+<ul>
+<li>Entrada al inmueble de manera ordenada y controlada</li>
+<li>Inspección de cada dependencia de forma sistemática</li>
+<li>Identificación y, en su caso, detención; atención especial a personas vulnerables</li>
+</ul>
+<h4>Después</h4>
+<ul>
+<li>Entrega del inmueble al propietario; partes de servicio y atestados</li>
+</ul>
+<div class="alert-warn">Nunca forzar la entrada al domicilio sin resolución judicial o flagrante delito. Si hay menores: coordinarse con servicios sociales. Documentar fotográficamente antes y después.</div>
+`,
+  "17": `
+<h3>Nota Previa</h3>
+<div class="alert-warn">Este tema se refiere a incidentes <strong>sin rehenes</strong>. Si hay rehenes: esfuerzo principal compete al <strong>GEO</strong>.</div>
+
+<h3>17.1. Normativa</h3>
+<ul>
+<li><strong>R.D. 1668/89, Art. 1.g):</strong> "Intervención en motines y situaciones de análoga peligrosidad"</li>
+<li><strong>LO 1/79, Ley General Penitenciaria (Disp. Final 1ª):</strong> Desde que intervengan los CFS, asumirá la dirección del establecimiento (custodia, vigilancia y restauración del orden) el Jefe de las mismas</li>
+<li><strong>R.D. 190/1996, Reglamento Penitenciario:</strong>
+  <ul>
+  <li>Art. 63: Vigilancia exterior → Fuerzas de Seguridad del Estado</li>
+  <li>Art. 64: Vigilancia interior → Funcionarios de Instituciones Penitenciarias</li>
+  </ul>
+</li>
+</ul>
+
+<h3>17.2. Operativa UIP — MIMED</h3>
+<h4>Información Previa</h4>
+<ul>
+<li>Causas del incidente; número de amotinados; fichas de los internos implicados</li>
+<li>Peligrosidad; armas en su poder y tipo</li>
+<li>Lugar donde se encuentran y zonas afectadas</li>
+<li>Distribución física del recinto y vías de entrada/salida</li>
+<li>Reivindicaciones, peticiones y demandas; apoyos que pueden recibir del exterior</li>
+</ul>
+<h4>Medios</h4>
+<table>
+<tr><th>Tipo</th><th>Elementos</th></tr>
+<tr><td><strong>Humanos</strong></td><td>Personal UIP; mantener siempre reserva en el exterior</td></tr>
+<tr><td><strong>Materiales</strong></td><td>Escudos, grilletes de un solo uso, lazos, transmisiones, máscaras antigás</td></tr>
+<tr><td><strong>Especiales</strong></td><td>Visión nocturna, drones, helicóptero, BMR, maquinaria/grúas/escalas</td></tr>
+</table>
+<h4>Antes</h4>
+<div class="alert"><strong>Comité de Emergencia:</strong> Determinar: Jefe de la Operación, interlocutor con los amotinados, canal de comunicación interno, coordinación con Instituciones Penitenciarias.</div>
+<ul>
+<li>Establecer perímetro de seguridad exterior y neutralizar el exterior</li>
+<li>Obtener los planos del establecimiento</li>
+</ul>
+<h4>Durante</h4>
+<ul>
+<li><strong>Negociación como primer recurso</strong> (paralela a los preparativos)</li>
+<li>Intervención solo cuando la negociación fracase o exista riesgo grave</li>
+<li>Entrada al módulo de manera ordenada; avanzar sistemáticamente</li>
+</ul>
+<h4>Después</h4>
+<ul>
+<li>Recuento de internos y personal funcionario; atención a heridos</li>
+<li>Identificación y separación de cabecillas; documentación fotográfica</li>
+<li>Atestados, informes y juicio crítico</li>
+</ul>
+`,
+  "19": `
+<h3>19.1. Normativa</h3>
+<ul>
+<li>Protocolo de normas de actuación en las repatriaciones y traslado de detenidos por vía aérea y/o marítima. Septiembre 2007</li>
+<li>Instrucción Sección Prevención de la Salud de 11-10-02: Síndrome de clase turista</li>
+</ul>
+<h4>Síndrome de Clase Turista (Trombosis Venosa)</h4>
+<ul>
+<li>Problema circulatorio con posible formación de trombosis en vuelos largos</li>
+<li><strong>Prevención:</strong> Ropa no ajustada (fibra natural); caminar por los pasillos; ejercicio sentado; respiraciones profundas; beber agua; evitar alcohol, té o café</li>
+</ul>
+
+<h3>19.2. Operativa UIP</h3>
+<h4>Misión</h4>
+<ul>
+<li>Genérica: Expulsión y/o repatriación de extranjeros en estancia ilegal por vía aérea</li>
+<li>Específica: Garantizar la seguridad en el vuelo y los derechos e integridad física de los expulsados</li>
+</ul>
+<h4>Personal</h4>
+<div class="alert"><strong>Todo el personal irá de paisano, con pantalón largo, calzado cerrado y chalecos identificativos.</strong></div>
+<ul>
+<li>Personal de armamento UIP + personal con conocimiento en artes marciales/técnicas de reducción</li>
+<li>UCER: gestiona trámites administrativos, compañía aérea, autoridades del país</li>
+<li>Médico y ATS: atención sanitaria de los expulsados y los policías</li>
+</ul>
+<h4>Material</h4>
+<ul>
+<li>Autobuses; guantes de látex; lazos de seguridad + navaja/tijeras para cortarlos; mascarillas tipo pintor o cirujano</li>
+</ul>
+<div class="alert-warn"><strong>Prohibido:</strong> Uso de cámaras fotográficas, de video o teléfonos con dichas funciones durante el servicio en cualquier momento de la operación.</div>
+<h4>Ejecución</h4>
+<ul>
+<li><strong>Previa:</strong> Certificado Internacional de Vacunación actualizado; pasaportes y visados en vigor</li>
+<li><strong>Antes:</strong> Cita en base <strong>hora y media antes</strong> del vuelo; llegada al aeropuerto <strong>una hora antes</strong></li>
+<li><strong>Embarque:</strong> Receptación uno a uno; <strong>conducidos mediante binomios por la escalerilla trasera del avión</strong></li>
+<li><strong>Llegada al destino:</strong> <strong>Nadie del Policía Nacional baja del avión.</strong> Los expulsados salen solos por el pasillo hasta la escalerilla de la cabecera del avión, salvo problemas. El personal de la UCER trata con las autoridades locales desde el avión.</li>
+</ul>
+`,
+  "20": `
+<h3>20.1. Sistema Nacional de Protección Civil</h3>
+<div class="alert"><strong>R.D. 524/2023, de 20 de junio</strong> — Norma Básica de Protección Civil.<br>Principios rectores: <strong>colaboración, cooperación, coordinación, solidaridad interterritorial, subsidiariedad, eficiencia, participación, inclusión y accesibilidad universal</strong>.</div>
+
+<h3>20.2. Tipos de Planes</h3>
+<table>
+<tr><th>Plan</th><th>Descripción</th></tr>
+<tr><td><strong>Estatal General (Art. 9)</strong></td><td>Marco de planificación del Sistema Nacional de Protección Civil. Coordina las AAPP en emergencias de interés nacional</td></tr>
+<tr><td><strong>Territoriales (Art. 10)</strong></td><td>Instrumentos superiores en el territorio de una CC.AA. o entidad local; en ellos se integran los planes especiales</td></tr>
+<tr><td><strong>Especiales (Art. 11)</strong></td><td>Para riesgos con metodología técnico-científica propia; estatales o autonómicos</td></tr>
+<tr><td><strong>Autoprotección (Art. 12)</strong></td><td>Establecidos por los titulares de actividades que puedan ocasionar riesgos. Incluyen medidas con sus propios medios</td></tr>
+</table>
+
+<h3>20.3. Situaciones Operativas</h3>
+<table>
+<tr><th>Situación</th><th>Descripción</th></tr>
+<tr><td><strong>SO 0</strong></td><td>Modo ordinario; no requiere movilización o es mínima</td></tr>
+<tr><td><strong>SO 1</strong></td><td>Intervención con medios propios de la AAPP responsable</td></tr>
+<tr><td><strong>SO 2</strong></td><td>Máximo nivel autonómico; puede requerir asistencia de otras AAPP</td></tr>
+<tr><td><strong>SO 3</strong></td><td>Emergencias de interés nacional; declaradas por el titular del Ministerio del Interior</td></tr>
+</table>
+
+<h3>20.4. Zonas de Riesgo</h3>
+<table>
+<tr><th>Zona</th><th>Descripción</th></tr>
+<tr><td><strong>Intervención</strong></td><td>Coincide con la zona siniestrada; Grupo de Intervención Operativa y Rescate Sanitario</td></tr>
+<tr><td><strong>Socorro</strong></td><td>Inmediata a la de intervención; operaciones de socorro sanitario</td></tr>
+<tr><td><strong>Base</strong></td><td>Concentración y organización de reservas; recepción de evacuados</td></tr>
+</table>
+
+<h3>20.5. Estructura del Plan de Emergencia</h3>
+<ul>
+<li>Director → Gabinete de Información + CECOP (Centro de Coordinación Operativa) + Comité Asesor</li>
+<li>PMA (Puesto de Mando Avanzado)</li>
+<li><strong>Grupos de Acción:</strong> Intervención Operativa / Sanitario / Orden y Seguridad Ciudadana / Apoyo Logístico</li>
+</ul>
+<h4>Catálogo de Riesgos (Anexo RD 524/2023)</h4>
+<ol>
+<li>Inundaciones</li>
+<li>Terremotos</li>
+<li>Maremotos</li>
+<li>Riesgos Volcánicos</li>
+<li>Fenómenos meteorológicos adversos</li>
+<li>Incendios Forestales</li>
+<li>Accidentes con sustancias QBRN</li>
+<li>Accidentes de aviación civil</li>
+<li>Accidentes en transporte de mercancías peligrosas</li>
+<li>Riesgo bélico</li>
+</ol>
+`,
+  "21": `
+<h3>21.1. Conceptos</h3>
+<table>
+<tr><th>Concepto</th><th>Definición</th></tr>
+<tr><td><strong>Protección de Personas</strong></td><td>Dispositivo policial preventivo y disuasorio establecido en el entorno de una personalidad para reaccionar ante cualquier eventualidad: neutralización, cobertura y evacuación</td></tr>
+<tr><td><strong>Protección Dinámica</strong></td><td>Dispositivo consistente en custodiar a una persona u objeto en los desplazamientos</td></tr>
+<tr><td><strong>Protección Estática</strong></td><td>Dispositivo consistente en custodiar un lugar fijo, residencia o edificio público</td></tr>
+</table>
+<h4>Actividades Clave</h4>
+<ul>
+<li><strong>Avanzada de planificación:</strong> Recoge todos los datos necesarios para elaborar el dispositivo</li>
+<li><strong>Avanzada de ejecución:</strong> Actividad complementaria; recorrido y revisión del itinerario previsto antes de cada salida del protegido</li>
+<li><strong>Contravigilancia:</strong> Detectar previamente individuos o grupos que quieren atentar</li>
+<li><strong>Sala de Operaciones (CECOR):</strong> Coordina, centraliza y canaliza todas las comunicaciones</li>
+</ul>
+
+<h3>21.2. Teorías de la Protección</h3>
+<h4>Círculos Concéntricos</h4>
+<table>
+<tr><th>Círculo</th><th>Nombre</th><th>Descripción</th></tr>
+<tr><td><strong>1er</strong></td><td>Cápsula / Protección inmediata</td><td>Los más próximos al protegido; cobertura directa e inmediata</td></tr>
+<tr><td><strong>2º</strong></td><td>Protección próxima</td><td>Elementos con campo de vigilancia; en sus proximidades</td></tr>
+<tr><td><strong>3er</strong></td><td>Protección lejana</td><td>Elementos más alejados; control del perímetro exterior</td></tr>
+</table>
+<h4>Teoría Esférica</h4>
+<p>Cobertura de tres planos espaciales con la persona protegida como centro:</p>
+<ul>
+<li><strong>Espacio aéreo:</strong> Amenazas desde arriba (francotiradores en altura, drones)</li>
+<li><strong>Espacio superficial:</strong> Amenazas a nivel del suelo</li>
+<li><strong>Espacio subterráneo:</strong> Amenazas desde abajo (artefactos enterrados)</li>
+</ul>
+
+<div class="svg-diagram"><svg viewBox="0 0 580 390" xmlns="http://www.w3.org/2000/svg">
+  <circle cx="205" cy="195" r="168" fill="rgba(37,99,235,0.06)" stroke="var(--border)" stroke-width="1.5"/>
+  <circle cx="205" cy="195" r="108" fill="rgba(37,99,235,0.12)" stroke="var(--accent)" stroke-width="1.5"/>
+  <circle cx="205" cy="195" r="48" fill="var(--accent2)" stroke="var(--gold)" stroke-width="2"/>
+  <circle cx="205" cy="195" r="7" fill="#fff"/>
+  <text x="205" y="218" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="8.5" font-weight="700">PROTEGIDO</text>
+  <text x="205" y="168" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="9.5" font-weight="800">1er CÍRCULO</text>
+  <text x="205" y="182" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-family="sans-serif" font-size="8">Cápsula / Protección inmediata</text>
+  <text x="205" y="102" text-anchor="middle" fill="var(--text)" font-family="sans-serif" font-size="9.5" font-weight="700">2º CÍRCULO</text>
+  <text x="205" y="116" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Protección próxima</text>
+  <text x="205" y="44" text-anchor="middle" fill="var(--text)" font-family="sans-serif" font-size="9.5" font-weight="700">3er CÍRCULO</text>
+  <text x="205" y="58" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Protección lejana</text>
+  <rect x="400" y="50" width="160" height="75" rx="8" fill="var(--panel2)" stroke="var(--accent)" stroke-width="1.5"/>
+  <text x="480" y="72" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="9.5" font-weight="700">ESPACIO AÉREO</text>
+  <text x="480" y="88" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Drones, francotiradores</text>
+  <text x="480" y="102" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">en altura</text>
+  <rect x="400" y="155" width="160" height="75" rx="8" fill="var(--panel2)" stroke="var(--gold)" stroke-width="1.5"/>
+  <text x="480" y="177" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="9.5" font-weight="700">ESPACIO</text>
+  <text x="480" y="192" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="9.5" font-weight="700">SUPERFICIAL</text>
+  <text x="480" y="210" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Amenazas a nivel suelo</text>
+  <rect x="400" y="260" width="160" height="75" rx="8" fill="var(--panel2)" stroke="var(--danger)" stroke-width="1.5"/>
+  <text x="480" y="282" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="9.5" font-weight="700">ESPACIO</text>
+  <text x="480" y="297" text-anchor="middle" fill="#fff" font-family="sans-serif" font-size="9.5" font-weight="700">SUBTERRÁNEO</text>
+  <text x="480" y="315" text-anchor="middle" fill="var(--muted)" font-family="sans-serif" font-size="8">Artefactos enterrados</text>
+  <text x="390" y="25" text-anchor="middle" fill="var(--gold)" font-family="sans-serif" font-size="11" font-weight="700">TEORÍA ESFÉRICA</text>
+  <line x1="390" y1="35" x2="390" y2="360" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="3,3"/>
+</svg><div class="svg-caption">Círculos concéntricos de protección y teoría esférica</div></div><h3>21.3. Protección Estática</h3>
+<ul>
+<li><strong>Zona de influencia:</strong> Entorno exterior del edificio</li>
+<li><strong>Zona perimetral:</strong> Perímetro inmediato</li>
+<li><strong>Zona interior:</strong> Interior del edificio</li>
+</ul>
+<h4>Funciones</h4>
+<ul>
+<li><strong>Prevención:</strong> Disuasión, contención</li>
+<li><strong>Detección:</strong> Vigilancia, alerta, comunicación</li>
+<li><strong>Reacción:</strong> Comprobación, evaluación, decisión</li>
+<li><strong>Respuesta:</strong> Intervención, neutralización del ataque</li>
+</ul>
+
+<h3>21.4. Protección Dinámica — La Cápsula</h3>
+<ul>
+<li>Formación en cuña o diamante alrededor del protegido</li>
+<li>Contacto físico o visual permanente con el protegido</li>
+<li>Capacidad de reacción inmediata: <strong>cobertura → neutralización → evacuación</strong></li>
+<li>Principios: variación de itinerarios y horarios; avanzadas y contravigilancia previas; comunicación permanente con CECOR</li>
+</ul>
+<div class="alert"><strong>Composición de la cápsula:</strong> Entre <strong>1 y 5 protectores</strong> incluido el jefe de cápsula. Con 5 es la cápsula <strong>ideal</strong> (cubre los cuatro sectores en rombo y cuadro). El jefe de cápsula se coloca ligeramente retrasado a la <strong>derecha del protegido</strong>. Los conductores forman parte de la cápsula de protección.</div>
+`,
+  "22": `
+<h3>22.1. Plan de Formación Permanente (PFP)</h3>
+<div class="alert"><strong>Base legal:</strong> R.D. 1668/89, Art. 5 — Los integrantes de las UIP están obligados a realizar ejercicios de adiestramiento y manejo de medios. La falta de adecuado estado físico y psíquico supondrá la baja.</div>
+<p>El PFP se inició a principios del <strong>2006</strong>, con carácter anual y permanente.</p>
+<div class="alert"><strong>Carga lectiva: 72 horas anuales por grupo operativo</strong> (mínimo):
+<br>— 1er semestre: <strong>42 horas lectivas</strong>
+<br>— 2º semestre: <strong>30 horas lectivas</strong></div>
+
+<h3>22.2. Módulos del PFP</h3>
+<table>
+<tr><th>Módulo</th><th>Contenido</th><th>Profesorado</th></tr>
+<tr><td><strong>I</strong></td><td>Aplicaciones técnico-operativas de la especialidad</td><td>Personal UIP (instructores/monitores acreditados)</td></tr>
+<tr><td><strong>II</strong></td><td>Tiro y uso de los distintos medios materiales</td><td>Personal UIP (instructores/monitores acreditados)</td></tr>
+<tr><td><strong>III</strong></td><td>Preparación física y técnicas de defensa personal</td><td>Personal UIP (instructores/monitores acreditados)</td></tr>
+<tr><td><strong>IV</strong></td><td>Actualización en conocimientos jurídico-operativos</td><td>Miembros UIP o personal del CAE, Jefatura Superior o Comisaría</td></tr>
+</table>
+<h4>Gestión Documental</h4>
+<ul>
+<li>Al final del semestre: <strong>ACTA ÚNICA</strong> en papel y electrónico</li>
+<li>Se remite al coordinador de UIP del CAE, a través de los delegados de formación</li>
+<li>Los alumnos reciben un <strong>certificado de asistencia</strong> con carácter anual</li>
+</ul>
+
+<h3>22.3. Proceso de Revalidación</h3>
+<div class="alert"><strong>Resolución DGP de 11 de junio de 2014</strong> — regula el proceso y pruebas de revalidación en las UIP.
+<br>Art. 4 R.D. 1668/89: Compromiso inicial de <strong>3 años</strong> y renovaciones cada <strong>2 años</strong> con pruebas de revalidación.</div>
+<h4>JAR (Jornadas de Actualización y Reciclaje) — Centro de Linares</h4>
+<ul>
+<li>Duración: <strong>3 días</strong> con una carga lectiva de <strong>21 horas en total</strong></li>
+<li>Los asistentes reciben un <strong>certificado acreditativo de asistencia</strong> con baremo proporcional a las horas impartidas</li>
+</ul>
+<h4>Contenido de las Pruebas de Revalidación</h4>
+<ul>
+<li>Prueba de conocimientos teóricos (el <strong>Manual de Actualización</strong> como fondo documental)</li>
+<li>Prueba de aptitud física</li>
+<li>Valoración del rendimiento en el servicio</li>
+</ul>
+<div class="alert-warn">El presente Manual de Actualización de <strong>octubre de 2025</strong> constituye el <strong>fondo documental</strong> para las pruebas de conocimientos tanto en las JAR (Jornadas de Actualización y Reciclaje) como en los procesos de revalidación.</div>
+`,
+  "25": `
+<h3>25.1. Clasificación del Armamento UIP</h3>
+<table>
+<tr><th>Tipo</th><th>Arma</th><th>Calibre</th></tr>
+<tr><td><strong>Arma corta</strong></td><td>Pistola HK USP COMPACT</td><td>9mm Parabellum</td></tr>
+<tr><td rowspan="5"><strong>Armas largas</strong></td><td>Escopeta Franchi SPS 350</td><td>12/70</td></tr>
+<tr><td>Subfusil HK MP5A5</td><td>9mm Parabellum</td></tr>
+<tr><td>Subfusil CZ Scorpion EVO3 A1 🆕</td><td>9mm Parabellum</td></tr>
+<tr><td>Fusil HK G36</td><td>5,56 × 45 NATO</td></tr>
+<tr><td>Fusil HK 417</td><td>7,62 × 51 NATO</td></tr>
+</table>
+<div class="alert-warn"><strong>Arma corta:</strong> Cañón no excede 30 cm o longitud total no excede 60 cm.<br><strong>Arma automática:</strong> Varios disparos sucesivos accionando el disparador una sola vez (ej. G36 en modo ráfaga).</div>
+<h3>25.2. Pistola HK USP COMPACT</h3>
+<p>Pistola semiautomática de <strong>cañón móvil de corto retroceso y basculante</strong>. Cañón de ánima <strong>poligonal</strong> (sin rayas o estrías). Calibre: <strong>9mm Parabellum</strong>. Cargador: <strong>13 cartuchos</strong>.</p>
+<table>
+<tr><th>Dato</th><th>Valor</th></tr>
+<tr><td>Capacidad cargador</td><td><strong>13 cartuchos</strong></td></tr>
+<tr><td>Capacidad máxima</td><td>13 (cargador) + 1 (recámara) = <strong>14</strong></td></tr>
+<tr><td>Sistema de funcionamiento</td><td>Retroceso corto con basculación del cañón</td></tr>
+<tr><td>Ánima</td><td>Poligonal (sin estrías) — mayor vida útil y mejores prestaciones balísticas</td></tr>
+<tr><td>Peso con cargador vacío</td><td>722,2 grs.</td></tr>
+</table>
+<h4>Indicadores y Seguridades</h4>
+<ul>
+<li><strong>Cartucho en recámara:</strong> La uña extractora (extractor) sobresale del perfil de la corredera; indicador de color <strong>rojo</strong> visible en la parte superior</li>
+<li><strong>Seguro:</strong> Anillo rojo visible = seguro activado; anillo rojo oculto = seguro desactivado</li>
+</ul>
+
+<h3>25.2. Subfusil HK MP5A5</h3>
+<ul>
+<li>Calibre: <strong>9mm Parabellum</strong></li>
+<li>Cargador disponible: <strong>25 cartuchos</strong> (aunque existen de 10, 15, 25, 30 y 40)</li>
+<li>Arma larga semiautomática de gran fiabilidad</li>
+<li>Se facilita con visor electroóptico de punto rojo marca <strong>Aimpoint</strong></li>
+</ul>
+<h3>25.3. Subfusil CZ Scorpion EVO3 A1 (🆕 2025)</h3>
+<ul>
+<li>Calibre: <strong>9mm Parabellum</strong></li>
+<li>Cargador: <strong>30 cartuchos</strong></li>
+<li>Dotación: <strong>1 por Subgrupo Operativo / 3 por Grupo Operativo</strong></li>
+</ul>
+<h3>25.4. Fusil HK G36</h3>
+<ul>
+<li>Calibre: <strong>5,56 × 45 mm NATO</strong></li>
+<li>Sistema: <strong>pistón de gas con cabeza rotatoria</strong></li>
+<li>Modos: semiautomático y automático (ráfaga)</li>
+<li>Capacidad cargador: 10, 15, 25, 30 y 40 (en dotación actual: <strong>25 cartuchos</strong>)</li>
+<li>Dotación: 1 por EO / 2 por SO / 7 por GO</li>
+</ul>
+
+<h3>25.3. Fusil HK 417</h3>
+<ul>
+<li>Calibre: <strong>7,62 × 51 mm NATO</strong></li>
+<li>Mayor precisión y alcance que el G36</li>
+<li>Dotación: <strong>2 por Grupo Operativo</strong></li>
+</ul>
+
+<h3>25.4. Subfusil CZ Scorpion EVO3 A1 (🆕 2025)</h3>
+<ul>
+<li>Dotación: <strong>1 por Subgrupo Operativo / 3 por Grupo Operativo</strong></li>
+</ul>
+
+<h3>25.6. Escopeta Franchi</h3>
+<ul>
+<li>Semiautomática. Calibre: <strong>12/70</strong></li>
+<li>Con bocacha: proyectiles tipo B (pelotas de goma/foam)</li>
+<li>Sin bocacha: munición letal</li>
+</ul>
+
+<h3>25.7. Técnica de Tiro</h3>
+<h4>Posiciones</h4>
+<ul>
+<li><strong>De pie:</strong> Pies a anchura de hombros; rodillas ligeramente flexionadas; cuerpo inclinado hacia delante</li>
+<li><strong>Rodilla en tierra:</strong> Mayor estabilidad; rodilla izquierda en el suelo</li>
+<li><strong>Tendido:</strong> Máxima estabilidad; menor perfil</li>
+</ul>
+<h4>Normas de Seguridad</h4>
+<ul>
+<li>Tratar siempre el arma como si estuviera cargada</li>
+<li>No dirigir nunca el arma a nada que no se quiera destruir</li>
+<li>El dedo fuera del guardamontes hasta que se vaya a disparar</li>
+<li>Identificar el objetivo y lo que hay detrás de él</li>
+</ul>
+<div class="alert-warn"><strong>Uso del arma de fuego (Art. 5.2 LO 2/86):</strong> Solo cuando exista un riesgo racionalmente grave para la vida o integridad física propia o de terceros. Principios: <strong>congruencia, oportunidad y proporcionalidad</strong>.</div>
+`
+};
+const FULL_TITLES={"1": "LAS UNIDADES DE INTERVENCIÓN POLICIAL", "2": "UNIFORMIDAD, SALUDO, FORMACIONES Y ORDEN CERRADO EN UIP", "3": "METODOLOGÍA Y NORMAS DE EXPLOTACIÓN DE LAS TRANSMISIONES", "4": "MATERIALES UIP", "5": "POSICIONES BÁSICAS. BARRERAS Y CADENAS", "6": "EQUIPO OPERATIVO DE UIP", "7": "SUBGRUPO OPERATIVO DE UIP", "8": "GRUPO OPERATIVO DE UIP", "9": "LEY ORGÁNICA 4/2015", "10": "CONCENTRACIONES Y MANIFESTACIONES. ASPECTOS JURÍDICOS", "11": "DISPOSITIVOS UIP", "12": "DISPOSITIVOS DE CONTROL DE MASAS", "13": "DISPOSITIVOS DE EVENTOS DEPORTIVOS", "14": "DISPOSITIVOS DE ESPECTÁCULOS PÚBLICOS", "15": "DISPOSITIVOS ESTÁTICOS DE CONTROL", "16": "DISPOSITIVOS DE DESALOJOS", "17": "PROCEDIMIENTO ANTE MOTINES", "18": "PROCEDIMIENTO DE INTERVENCIÓN EN INMUEBLES", "19": "DISPOSITIVOS DE EXPULSIONES Y REPATRIACIONES", "20": "CATÁSTROFES Y CALAMIDADES", "21": "PROTECCIÓN ESTÁTICA Y DINÁMICA DE PERSONAS", "22": "FORMACIÓN PERMANENTE Y PROCESO DE REVALIDACIÓN EN LA UIP", "23": "PLAN DE PREVENCIÓN ANTITERRORISTA. INSTRUCCIONES Y CIRCULAR 50", "24": "VERIFICACIÓN OPERATIVA DE DOCUMENTOS", "25": "ARMAMENTO Y TIRO"};
+const EXEMPTED=[15, 18, 23, 24];
+const HAS_DIAGRAM=[1, 4, 5, 6, 9, 10, 11, 12, 21];
+let currentTema=null,counts=JSON.parse(localStorage.getItem('uip_basica_counts')||'{}'),currentView='temas';
+
+const FC_DATA={
+  lo4:[
+    {q:"¿Cuántos apartados tiene el Art. 35 (MUY GRAVES)?", a:"Solo 4 (35.1 a 35.4)"},
+    {q:"¿Qué recoge el Art. 35.1?", a:"Reuniones/manifestaciones no comunicadas en infraestructuras de servicios básicos CUANDO generen riesgo para la vida o integridad física"},
+    {q:"¿Qué recoge el Art. 35.4?", a:"Proyección de haces de luz sobre pilotos o conductores que puedan deslumbrarles y provocar accidentes"},
+    {q:"¿En qué artículo está la desobediencia o resistencia a la autoridad?", a:"Art. 36.6 (infracción GRAVE), no en el 35"},
+    {q:"¿En qué artículo está la negativa a identificarse?", a:"Art. 36.6 (infracción GRAVE)"},
+    {q:"¿En qué artículo está la negativa a disolver una manifestación?", a:"Art. 36.7 (infracción GRAVE)"},
+    {q:"¿En qué artículo está la falta de respeto a un agente de la autoridad?", a:"Art. 37.4 (infracción LEVE)"},
+    {q:"¿En qué artículo está el deslucimiento de bienes públicos?", a:"Art. 37.13 (infracción LEVE)"},
+    {q:"¿Cuál es la multa mínima por una infracción LEVE?", a:"100 € (no 0 €). El rango es 100 – 600 €"},
+    {q:"¿Cuál es la prescripción de la sanción por infracción MUY GRAVE?", a:"3 años (Art. 40)"},
+    {q:"¿Cuál es la prescripción de la infracción GRAVE (Art. 38)?", a:"1 año desde que se comete"},
+    {q:"¿Cuál es la prescripción de la infracción LEVE (Art. 38)?", a:"6 meses desde que se comete"},
+  ],
+  pos:[
+    {q:"¿Cuántas posiciones tiene el escudo?", a:"5: natural/transporte, protección media (línea), alta, superior y baja"},
+    {q:"¿Cuántas posiciones tiene la defensa?", a:"6: transporte/mano a espalda, oculta, horizontal baja, media, horizontal oculta y terciada"},
+    {q:"¿Para qué se usa la formación Cuña Directa?", a:"Masas hostiles o densas y protección de personalidades"},
+    {q:"¿Para qué se usa la formación Cuña Inversa?", a:"Conducir masa o proteger personalidad manteniendo contacto visual"},
+    {q:"¿Para qué se usa la formación Línea?", a:"Contención, canalización y filtros"},
+    {q:"¿Para qué se usa la Columna de a dos?", a:"Masa pacífica y poco densa"},
+    {q:"¿Cuántas posiciones tiene la escopeta/bocacha?", a:"5: terciada, acunada, a la cadera, a la pierna y en transporte/atalaje mochila"},
+    {q:"¿Cuántas señales tiene el código de señales?", a:"12: columna, col. x2, col. x3, línea, línea x2, masa, cuña directa, cuña inversa, casco, arranque, al costado, sobre vehículos"},
+  ],
+  uni:[
+    {q:"¿Cuántos efectivos tiene un EO?", a:"7 (1 Oficial + 6 Policías)"},
+    {q:"¿Cuántos efectivos tiene un SO?", a:"15 (1 Subinsp. + 2 Of. + 12 Pol.)"},
+    {q:"¿Cuántos efectivos tiene un GO?", a:"50 (1 Insp. + 3 Subinsp. + 7 Of. + 39 Pol.)"},
+    {q:"¿Cuántos G36 tiene un EO / SO / GO?", a:"EO: 1 · SO: 2 · GO: 7"},
+    {q:"¿Cuántos escudos antidisturbios tiene un SO?", a:"6"},
+    {q:"¿Cuántos escudos antidisturbios tiene un GO?", a:"19"},
+    {q:"¿Cuántos escudos balísticos tiene un GO?", a:"7"},
+    {q:"¿Qué contiene la mochila portamaterial?", a:"2 botes ATL, 2 botes ATF, 25-30 pelotas de caucho, 42 cartuchos de proyección"},
+    {q:"¿Qué es el SOAR y cuántas PAR tiene?", a:"Subgrupo Operativo Antiterrorista de Reacción — 4 PAR, dirigido por el Jefe de SO"},
+    {q:"¿Cuántos CZ Scorpion EVO3 tiene un GO?", a:"3 (incorporado en 2025). El SO tiene 1."},
+  ],
+};
+const fcState={lo4:{idx:0,flipped:false},pos:{idx:0,flipped:false},uni:{idx:0,flipped:false}};
+
+function initFC(key){
+  const s=fcState[key],d=FC_DATA[key];
+  document.getElementById('fc-'+key+'-front').textContent=d[s.idx].q;
+  document.getElementById('fc-'+key+'-back').textContent=d[s.idx].a;
+  document.getElementById('fc-'+key+'-back').style.display='none';
+  document.getElementById('fc-'+key+'-front').style.display='';
+  document.getElementById('fc-'+key+'-counter').textContent=(s.idx+1)+' / '+d.length;
+  s.flipped=false;
+}
+function flipCard(key){
+  const s=fcState[key];s.flipped=!s.flipped;
+  document.getElementById('fc-'+key+'-front').style.display=s.flipped?'none':'';
+  document.getElementById('fc-'+key+'-back').style.display=s.flipped?'':'none';
+}
+function nextCard(key){const s=fcState[key],d=FC_DATA[key];s.idx=(s.idx+1)%d.length;initFC(key);}
+function prevCard(key){const s=fcState[key],d=FC_DATA[key];s.idx=(s.idx-1+d.length)%d.length;initFC(key);}
+
+function showView(view){
+  currentView=view;
+  document.getElementById('nav-temas').classList.toggle('active',view==='temas');
+  document.getElementById('nav-qr').classList.toggle('active',view==='qr');
+  document.getElementById('welcome').style.display='none';
+  document.getElementById('temaView').classList.remove('visible');
+  document.getElementById('qrView').classList.toggle('visible',view==='qr');
+  if(view==='temas'&&currentTema)openTema(currentTema);
+  else if(view==='temas')document.getElementById('welcome').style.display='';
+}
+
+function showQR(tab,btn){
+  document.querySelectorAll('.qr-tab').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.qr-panel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('qr-'+tab).classList.add('active');
+  initFC(tab);
+}
+
+function renderList(){
+  const list=document.getElementById('temaList');list.innerHTML='';
+  for(let i=1;i<=25;i++){
+    const isExempt=EXEMPTED.includes(i),count=counts[i]||0,hasDiag=HAS_DIAGRAM.includes(i);
+    const div=document.createElement('div');
+    div.className='tema-item'+(isExempt?' exempt':'')+(i===currentTema?' active':'');
+    div.id='item-'+i;div.onclick=()=>openTema(i);
+    div.innerHTML=`<div class="tema-num">${String(i).padStart(2,'0')}</div>
+      <div class="tema-name">${FULL_TITLES[String(i)]}${hasDiag?' <span style="font-size:10px;opacity:0.6">📊</span>':''}</div>
+      <div class="tema-counter"><span class="counter-badge ${count>0?'has-count':''}">${isExempt?'EXE':count}</span></div>`;
+    list.appendChild(div);
+  }
+}
+function filterTemas(q){
+  q=q.toLowerCase();
+  document.querySelectorAll('.tema-item').forEach(el=>{
+    const i=el.id.replace('item-','');
+    el.style.display=(FULL_TITLES[i].toLowerCase().includes(q)||i.includes(q))?'':'none';
+  });
+}
+function openTema(num){
+  currentTema=num;currentView='temas';
+  document.getElementById('nav-temas').classList.add('active');
+  document.getElementById('nav-qr').classList.remove('active');
+  renderList();
+  document.getElementById('welcome').style.display='none';
+  document.getElementById('qrView').classList.remove('visible');
+  const view=document.getElementById('temaView');view.classList.add('visible');
+  document.getElementById('viewEyebrow').textContent='TEMA '+num;
+  document.getElementById('viewTitle').textContent=FULL_TITLES[String(num)];
+  document.getElementById('counterValue').textContent=counts[num]||0;
+  const isExempt=EXEMPTED.includes(num),card=document.getElementById('resumenCard'),content=document.getElementById('resumenContent');
+  if(isExempt){
+    card.style.display='none';
+    if(!document.getElementById('exemptCard')){
+      const d=document.createElement('div');d.id='exemptCard';d.className='exempt-notice';
+      d.innerHTML='<div class="icon">🎓</div><h3>Tema exento</h3><p>Este tema se estudia en formato presencial durante los cursos de especialización y jornadas de formación permanente.</p>';
+      view.appendChild(d);
+    }
+    document.getElementById('exemptCard').style.display='';
+  }else{
+    card.style.display='';
+    const ex=document.getElementById('exemptCard');if(ex)ex.style.display='none';
+    const editedHTML = (JSON.parse(localStorage.getItem('uip_edits')||'{}')||{})[num];
+    content.innerHTML = '<div class="summary-content">' + (editedHTML || RESUMENES[String(num)]) + '</div>';
+    const mb = document.getElementById('modBadge');
+    if (mb) mb.classList.toggle('show', !!editedHTML);
+  }
+  // reset edit mode
+  editMode = false;
+  const eb = document.getElementById('editBtn');
+  if (eb) { eb.classList.remove('active'); eb.textContent = '✏️ Editar'; }
+  const et = document.getElementById('editToolbar'); if (et) et.classList.remove('show');
+  const esb = document.getElementById('editSavebar'); if (esb) esb.classList.remove('show');
+  // notes
+  const notesCard = document.getElementById('notesCard');
+  const notesArea = document.getElementById('notesArea');
+  if (notesCard && notesArea) {
+    notesCard.style.display = '';
+    notesArea.value = (JSON.parse(localStorage.getItem('uip_notes')||'{}')||{})[num] || '';
+    notesArea.oninput = () => {
+      clearTimeout(window._notesTimer);
+      window._notesTimer = setTimeout(() => {
+        const notes = JSON.parse(localStorage.getItem('uip_notes')||'{}');
+        notes[num] = notesArea.value;
+        localStorage.setItem('uip_notes', JSON.stringify(notes));
+        const ind = document.getElementById('notesSaved');
+        if (ind) { ind.classList.add('show'); setTimeout(()=>ind.classList.remove('show'),1500); }
+      }, 800);
+    };
+  }
+  document.getElementById('main').scrollTop=0;
+}
+function changeCount(delta){
+  if(!currentTema)return;
+  const next=Math.max(0,(counts[currentTema]||0)+delta);
+  counts[currentTema]=next;
+  localStorage.setItem('uip_basica_counts',JSON.stringify(counts));
+  document.getElementById('counterValue').textContent=next;
+  renderList();updateProgress();
+}
+function updateProgress(){
+  const total=Object.values(counts).reduce((a,b)=>a+b,0);
+  document.getElementById('totalSessions').textContent=total;
+  const studied=Object.keys(counts).filter(k=>counts[k]>0).length;
+  document.getElementById('progressFill').style.width=(Math.min(studied/(25-EXEMPTED.length),1)*100)+'%';
+}
+function init(){renderList();updateProgress();initFC('lo4');initFC('pos');initFC('uni');}
+init();
+
+// ── EDIT MODE ────────────────────────────────────────────────────────────────
+var editMode = false;
+
+function toggleEdit() {
+  editMode = !editMode;
+  var btn = document.getElementById('editBtn');
+  var toolbar = document.getElementById('editToolbar');
+  var savebar = document.getElementById('editSavebar');
+  var content = document.querySelector('#resumenContent .summary-content');
+  if (!content) return;
+  btn.classList.toggle('active', editMode);
+  btn.textContent = editMode ? '✏️ Editando...' : '✏️ Editar';
+  toolbar.classList.toggle('show', editMode);
+  savebar.classList.toggle('show', editMode);
+  content.contentEditable = editMode ? 'true' : 'false';
+  if (editMode) content.focus();
+}
+
+function fmt(cmd) {
+  document.execCommand(cmd, false, null);
+  var c = document.querySelector('#resumenContent .summary-content');
+  if (c) c.focus();
+}
+
+function doUndo() {
+  document.execCommand('undo', false, null);
+  var c = document.querySelector('#resumenContent .summary-content');
+  if (c) c.focus();
+}
+
+function insertList() {
+  var content = document.querySelector('#resumenContent .summary-content');
+  if (!content) return;
+  var ul = document.createElement('ul');
+  ul.innerHTML = '<li>Nuevo elemento</li>';
+  var sel = window.getSelection();
+  if (sel && sel.rangeCount) { sel.getRangeAt(0).insertNode(ul); }
+  else { content.appendChild(ul); }
+}
+
+function insertAlert() {
+  var content = document.querySelector('#resumenContent .summary-content');
+  if (!content) return;
+  var div = document.createElement('div');
+  div.className = 'alert alert-warn';
+  div.textContent = 'Nota: ';
+  var sel = window.getSelection();
+  if (sel && sel.rangeCount) { sel.getRangeAt(0).insertNode(div); }
+  else { content.appendChild(div); }
+}
+
+function saveEdit() {
+  if (!currentTema) return;
+  var content = document.querySelector('#resumenContent .summary-content');
+  if (!content) return;
+  var edits = JSON.parse(localStorage.getItem('uip_edits') || '{}');
+  edits[currentTema] = content.innerHTML;
+  localStorage.setItem('uip_edits', JSON.stringify(edits));
+  editMode = false;
+  var btn = document.getElementById('editBtn');
+  btn.classList.remove('active');
+  document.getElementById('editToolbar').classList.remove('show');
+  document.getElementById('editSavebar').classList.remove('show');
+  content.contentEditable = 'false';
+  document.getElementById('modBadge').classList.add('show');
+  btn.textContent = '✅ Guardado';
+  setTimeout(function(){ btn.textContent = '✏️ Editar'; }, 1800);
+}
+
+function restoreOriginal() {
+  if (!currentTema) return;
+  if (!confirm('Restaurar el resumen original de este tema. Se perderan tus ediciones. Continuar?')) return;
+  var edits = JSON.parse(localStorage.getItem('uip_edits') || '{}');
+  delete edits[currentTema];
+  localStorage.setItem('uip_edits', JSON.stringify(edits));
+  document.getElementById('resumenContent').innerHTML = '<div class="summary-content">' + RESUMENES[String(currentTema)] + '</div>';
+  editMode = false;
+  var btn = document.getElementById('editBtn');
+  btn.classList.remove('active');
+  btn.textContent = '✏️ Editar';
+  document.getElementById('editToolbar').classList.remove('show');
+  document.getElementById('editSavebar').classList.remove('show');
+  document.getElementById('modBadge').classList.remove('show');
+}
+</script>
+</body>
+</html>
